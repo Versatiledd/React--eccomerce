@@ -3,7 +3,6 @@ import CollectionItem from "../collectionItem/collection-item";
 import "./prevComponents.styles.scss";
 
 const PrevComponents = ({ title, items }) => {
-  console.log(items);
   return (
     <>
       <div className="collection-previev">

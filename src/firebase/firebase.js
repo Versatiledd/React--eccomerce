@@ -13,6 +13,31 @@ const daneFirebase = {
   measurementId: "G-HJNQV1D6ES"
 };
 
+export const UserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapshot = await userRef.get();
+
+  if (!snapshot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt
+      });
+    } catch (error) {
+      console.log("error creating user");
+    }
+  }
+
+  console.log(userRef);
+  return userRef;
+};
+
 firebase.initializeApp(daneFirebase);
 
 export const auth = firebase.auth();
