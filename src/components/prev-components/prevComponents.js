@@ -7,7 +7,7 @@ const PrevComponents = ({ title, items }) => {
   return (
     <>
       <div className="collection-previev">
-        <h3>{title.toUpperCase()}</h3>
+        <h3 className="title">{title.toUpperCase()}</h3>
         <div className="previev">
           {items
             .filter((item, index) => index < 4)

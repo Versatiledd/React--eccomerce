@@ -1,0 +1,17 @@
+$main-color: gray;
+$second-color: black;
+
+.group {
+    position: relative;
+    margin: 20px 0;
+
+    .form-input {
+        width: 100%;
+        padding: 12px 0;
+        background: none;
+        background-color: white;
+        border: none;
+        border-bottom: 1px solid $main-color;
+        outline: none;
+    }
+}
