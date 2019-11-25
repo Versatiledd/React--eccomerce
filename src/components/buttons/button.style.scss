@@ -1,4 +1,6 @@
 .btn {
+    display: flex;
+    justify-content: center;
     width: 100%;
     margin-bottom: 20px;
     font-family: "Roboto";
@@ -15,5 +17,16 @@
         background-color: white;
         color: black;
         border: 2px solid rgb(235, 142, 22);
+    }
+
+    &.color {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+
+        &:hover {
+            background-color: black;
+            color: white;
+        }
     }
 }

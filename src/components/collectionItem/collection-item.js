@@ -1,5 +1,5 @@
 import React from "react";
-
+import Button from "../buttons/Buttons";
 import "./collectionItems.styles.scss";
 
 const CollectionItem = ({ id, name, price, imageUrl }) => {
@@ -15,6 +15,7 @@ const CollectionItem = ({ id, name, price, imageUrl }) => {
           <span className="name">{name}</span>
           <span className="name">{price}</span>
         </div>
+        <Button>Dodaj do karty</Button>
       </div>
     </>
   );
