@@ -38,14 +38,14 @@ const Header = ({ currentUser, hidden }) => {
           )}
           <CartIcon />
         </div>
-        {hidden ? null : <Cart />}
       </div>
+      {!hidden ? null : <Cart />}
     </>
   );
 };
 
 const mapStateToProps = state => ({
   currentUser: state.user,
-  hidden: state.toogleCartHidden
+  hidden: state.hidden
 });
 export default connect(mapStateToProps)(Header);

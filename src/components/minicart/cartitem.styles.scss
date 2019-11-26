@@ -1,0 +1,32 @@
+.cart {
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px 0;
+
+    img {
+        padding-left: 10px;
+        height: 100px;
+        width: 100px;
+    }
+
+    @media (orientaion: landscape) and (min-width: 1200px) {
+        .img {
+            height: 200px;
+            width: 200px;
+        }
+    }
+
+    .item-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin: 0 auto;
+        text-align: center;
+
+        .name,
+        .price {
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+    }
+}

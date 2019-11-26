@@ -1,5 +1,8 @@
+import { removeDuplicate } from "./remove-duplicate-array";
+
 const InitializeState = {
-  hidden: true
+  hidden: true,
+  cartItems: []
 };
 
 const cartReducer = (state = InitializeState, action) => {
@@ -8,6 +11,11 @@ const cartReducer = (state = InitializeState, action) => {
       return {
         ...state,
         hidden: !state.hidden
+      };
+    case "ADD_ITEM":
+      return {
+        ...state,
+        cartItems: removeDuplicate(state.cartItems, action.payload)
       };
     default:
       return state;

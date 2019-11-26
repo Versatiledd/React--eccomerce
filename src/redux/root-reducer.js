@@ -5,5 +5,5 @@ import cartReducer from "../redux/cart/cart.reducer";
 
 export default combineReducers({
   user: userReducer,
-  toogleCartHidden: cartReducer
+  hidden: cartReducer
 });

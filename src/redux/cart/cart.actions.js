@@ -3,3 +3,8 @@ const toggleCartHidden = () => ({
 });
 
 export default toggleCartHidden;
+
+export const addItem = item => ({
+  type: "ADD_ITEM",
+  payload: item
+});

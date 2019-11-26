@@ -10,8 +10,8 @@ const PrevComponents = ({ title, items }) => {
         <div className="previev">
           {items
             .filter((item, index) => index < 4)
-            .map(({ id, ...otherItemProps }) => (
-              <CollectionItem key={id} {...otherItemProps}></CollectionItem>
+            .map(item => (
+              <CollectionItem key={item.id} item={item}></CollectionItem>
             ))}
         </div>
       </div>
