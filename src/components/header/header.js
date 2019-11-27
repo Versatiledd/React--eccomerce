@@ -7,6 +7,10 @@ import { connect } from "react-redux";
 import CartIcon from "../cart-item/cart-item";
 import Cart from "../cart/cart";
 
+import { createStructuredSelector } from "reselect";
+import { cartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+
 const Header = ({ currentUser, hidden }) => {
   return (
     <>
@@ -24,9 +28,6 @@ const Header = ({ currentUser, hidden }) => {
           <Link to="/contact" className="option">
             Contact
           </Link>
-          {/* <Link to="/signin" className="option">
-            Sign In
-          </Link> */}
           {currentUser ? (
             <div className="option" onClick={() => auth.signOut()}>
               Sign Out
@@ -39,13 +40,22 @@ const Header = ({ currentUser, hidden }) => {
           <CartIcon />
         </div>
       </div>
-      {!hidden ? null : <Cart />}
+      {hidden ? null : <Cart />}
     </>
   );
 };
 
+// Przekazanie stanu aplikacji - metoda I
+
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+//   currentUser,
+//   hidden
+// });
+
+// Przekazanie stanu aplikacji przy użyciu selektorów, które nie renderują komponenty jeśli stan aplikacji nie ulega zmianie - import {createSelector} from 'reselect'
+
 const mapStateToProps = state => ({
-  currentUser: state.user,
-  hidden: state.hidden
+  currentUser: selectCurrentUser(state),
+  hidden: cartHidden(state)
 });
 export default connect(mapStateToProps)(Header);
