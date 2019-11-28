@@ -4,8 +4,10 @@ import "./cart.styles.scss";
 import CartItem from "../minicart/cart-item";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import toggleCartHiden from "../../redux/cart/cart.actions";
 
-const Cart = ({ cartItems, history }) => {
+const Cart = ({ cartItems, history, dispatch }) => {
+  console.log(dispatch);
   return (
     <div className="cart-container">
       <div className="cart-items">
@@ -15,7 +17,13 @@ const Cart = ({ cartItems, history }) => {
           <span className="empty-message">Twoja karta jest pusta</span>
         )}
       </div>
-      <Button className="btn-small" onClick={() => history.push("/checkout")}>
+      <Button
+        className="btn-small"
+        onClick={() => {
+          history.push("/checkout");
+          dispatch(toggleCartHiden());
+        }}
+      >
         Przejdź do płatności
       </Button>
     </div>
