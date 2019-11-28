@@ -1,7 +1,7 @@
 .checkout-page {
     display: flex;
     flex-direction: column;
-    width: 50vw;
+    width: 80vw;
     margin: 0 auto;
 
     .checkout-header {
@@ -12,6 +12,7 @@
 
     .header {
         display: flex;
+        width: 100px;
         justify-content: center;
         align-items: center;
     }
