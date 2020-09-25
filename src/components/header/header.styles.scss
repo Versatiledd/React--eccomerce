@@ -1,24 +1,435 @@
-.header {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.layer {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -100%;
+  background-color: rosybrown;
+  width: 100%;
+  height: 100%;
 
-    .logo {
-        width: 120px;
+  .nav-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    @media (min-width: 320px) and(orientation:portrait) {
+      .video-container {
+        display: none;
+      }
     }
+
+    @media (min-width: 320px) and(orientation:landscape) {
+      .video-container {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1366px) and(orientation:landscape) {
+
+      ul.ul-wrapper {
+        max-width: 30%;
+      }
+
+      .video-container {
+        display: block;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .reveal-video {
+        position: absolute;
+        background: rosybrown;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .video {
+        position: absolute;
+        // z-index: -10;
+        height: 100%;
+
+        video {
+          height: 100%;
+        }
+      }
+    }
+
+
+    .ul-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      list-style: none;
+
+      .item {
+        cursor: pointer;
+        text-align: center;
+        padding: 20px 0;
+      }
+
+      .single-link {
+        color: #d7d6db;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+  }
 }
 
-.options {
-    padding: 30px 0;
-    display: flex;
-    justify-content: space-evenly;
-    width: 20%;
+.header {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
 
-    .option {
-        color: black;
-        list-style: none;
-        text-decoration: none;
+  // kod do nazwy firmy
+  .wrapper-header {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    .wrapper-items {
+      color: #727176;
+      font-weight: 400;
+      font-family: "Helvetica Neue LT Std - Lt Cn";
+      display: flex;
+
+      .user-login {
+        cursor: pointer;
+        padding: 10px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: .6s;
+
+        &:hover {
+          border-radius: 8px 8px 0px 0px;
+          box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 2px 1px, rgba(0, 0, 0, 0.16) 0px 4px 8px 0px;
+          background: rgb(255, 255, 255);
+          z-index: 10;
+        }
+
+        &:hover::after {
+          content: "";
+          position: absolute;
+          left: 0px;
+          bottom: -6px;
+          height: 12px;
+          background: rgb(255, 255, 255);
+          width: 100%;
+          z-index: 12;
+          pointer-events: none;
+        }
+
+        .ammount-item {
+          position: absolute;
+          font-weight: lighter;
+          font-size: 22px;
+          top: 0;
+          right: 0;
+          color: rgb(0, 130, 250);
+        }
+
+        .off {
+          display: none;
+        }
+
+        .hover-wrapper {
+          position: absolute;
+          top: 100%;
+          min-width: 250px;
+          z-index: 11;
+          background-color: rgb(255, 255, 255);
+          border-radius: 8px;
+          box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 2px 1px, rgba(0, 0, 0, 0.16) 0px 4px 8px 0px;
+          left: 0px;
+
+
+
+          .cart-title {
+            display: block;
+            margin: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            color: rgb(59, 57, 57);
+          }
+
+          .btn-wra {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+
+
+            .btn-checkout {
+              cursor: pointer;
+              outline: none;
+              border: none;
+              background-color: rgb(19, 172, 0);
+              margin: 20px 0;
+              height: 40px;
+              border-radius: 500px;
+              width: 80%;
+              font-size: 15px;
+              color: rgb(255, 255, 255);
+            }
+
+          }
+
+
+          .container-cart {
+            display: flex;
+            height: 100%;
+            width: 360px;
+            justify-content: center;
+            margin-top: 10px;
+          }
+
+          .cart-item {
+            width: 360px;
+
+            .cart-title,
+            .cart-description {
+              padding: 20px;
+            }
+
+            .cart-description {
+              display: flex;
+              justify-content: space-between;
+
+
+              .container-desription {
+
+                img {
+                  display: block;
+                  width: 80px;
+                  height: 80px;
+                }
+              }
+            }
+
+            .checkout-cart {
+              background-color: #F5F5F5;
+              padding: 20px;
+
+              .container-checkout {
+                display: flex;
+                justify-content: space-between;
+
+                .price-checkout {
+                  font-family: "Helvetica Neue LT Std - Lt Cn";
+                  font-weight: 400;
+                  letter-spacing: 0.42px;
+                  font-size: 18px;
+                  font-weight: 600;
+                  color: black;
+                }
+              }
+            }
+          }
+
+          .container-login {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            margin-top: 10px;
+
+            .btn-wrapper {
+              width: 200px;
+              height: 100%;
+
+              .title-cart {
+                font-size: 14px;
+                text-align: center;
+              }
+
+              .no-account {
+                display: block;
+                padding: 10px 0;
+                text-align: center;
+              }
+
+              .login-btn {
+                cursor: pointer;
+                width: 100%;
+                height: 30px;
+                background: #0082fa;
+                color: white;
+                border: 1px solid #0082fa;
+                border-radius: 12px;
+              }
+
+              .register-btn {
+                cursor: pointer;
+                width: 100%;
+                background: rgb(255, 255, 255);
+                color: rgb(0, 130, 250);
+                border: 1px solid rgb(0, 130, 250);
+                border-radius: 12px;
+                height: 30px;
+              }
+            }
+          }
+        }
+
+        .user-icon {
+          font-size: 30px;
+        }
+      }
     }
+
+    .wrapper-login {
+      display: flex;
+      justify-content: space-around;
+      width: 100px;
+      height: 50px;
+
+      .login-link {
+        margin-top: 10px;
+        color: #778064;
+        text-decoration: none;
+      }
+
+      .img-login {
+        font-size: 38px;
+      }
+    }
+
+    .menu {
+      cursor: pointer;
+      color: #727176;
+      z-index: 2;
+      font-size: 38px;
+    }
+
+    @media (min-width: 1024px) and (orientation: portrait) {
+      .menu {
+        font-size: 65px;
+      }
+    }
+
+    @media (min-width: 1366px) and (orientation: landscape) {
+      .menu {
+        font-size: 40px;
+      }
+    }
+
+    .logo-name {
+      display: flex;
+      flex-direction: row;
+      width: auto;
+
+      .small-title,
+      .big-title {
+        color: #e9d8ba;
+        font-family: "Helvetica Neue LT Std - Lt Cn";
+        font-size: 40px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  // kod do palety kolorów
+  .wrapper-pallete {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .collor-pallete {
+      display: flex;
+
+      .wrapper-circle {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+
+        .circle {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+
+        .white {
+          background-color: #edecec;
+        }
+
+        .gray {
+          background-color: #d7d6db;
+        }
+
+        .green {
+          background-color: #778064;
+        }
+      }
+    }
+
+    .name {
+      color: #727176;
+      font-family: "Helvetica Neue LT Std - Lt Cn";
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 5.42px;
+    }
+
+    @media (min-width: 1366px) and (orientation: landscape) {
+      .name {
+        font-size: 20px;
+      }
+
+      .ul-wrapper {
+        max-width: 30%;
+      }
+    }
+  }
+
+  @media (min-width: 320px) and (orientation: portrait) {
+
+    .wrapper-header {
+      margin-left: 10px;
+    }
+
+    .wrapper-items {
+      display: none !important;
+    }
+
+    .wrapper-login {
+      flex-direction: column;
+      justify-content: normal !important;
+    }
+
+    .wrapper-circle,
+    .name {
+      opacity: 0;
+    }
+  }
+
+  @media (min-width: 768px) and (orientation: portrait) {
+
+    .wrapper-login {
+      flex-direction: row;
+      justify-content: space-around !important;
+    }
+
+    .wrapper-circle,
+    .name {
+      z-index: -1;
+      opacity: 1;
+    }
+  }
 }

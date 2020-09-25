@@ -1,10 +1,14 @@
-const toggleCartHidden = () => ({
-  type: "TOGGLE_CART_HIDDEN"
+export const addItem = (item) => ({
+  type: "ADD_ITEM",
+  payload: item,
 });
 
-export default toggleCartHidden;
+export const clearItemsFromCheckout = (item) => ({
+  type: "CLEAR_ITEMS_FROM_CHECKOUT",
+  payload: item,
+});
 
-export const addItem = item => ({
-  type: "ADD_ITEM",
-  payload: item
+export const removeItem = (item) => ({
+  type: "REMOVE_ITEM",
+  payload: item,
 });

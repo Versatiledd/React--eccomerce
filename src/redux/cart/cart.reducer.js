@@ -1,21 +1,27 @@
 import { removeDuplicate } from "./remove-duplicate-array";
 
+import { addItemToCart, removeItem } from "../cart/cart.utils";
+
 const InitializeState = {
-  hidden: true,
-  cartItems: []
+  cartItems: [],
 };
 
 const cartReducer = (state = InitializeState, action) => {
   switch (action.type) {
-    case "TOGGLE_CART_HIDDEN":
-      return {
-        ...state,
-        hidden: !state.hidden
-      };
     case "ADD_ITEM":
       return {
         ...state,
-        cartItems: removeDuplicate(state.cartItems, action.payload)
+        cartItems: addItemToCart(state.cartItems, action.payload),
+      };
+    case "CLEAR_ITEMS_FROM_CHECKOUT":
+      return {
+        ...state,
+        cartItems: [],
+      };
+    case "REMOVE_ITEM":
+      return {
+        ...state,
+        cartItems: removeItem(state.cartItems, action.payload),
       };
     default:
       return state;

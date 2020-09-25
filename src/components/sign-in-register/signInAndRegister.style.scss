@@ -2,3 +2,15 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+@media(min-width: 320px) and (orientation: portrait) {
+    .signInAndSignUp {
+        flex-direction: column;
+    }
+}
+
+@media(min-width: 568px) and (orientation: landscape) {
+    .signInAndSignUp {
+        margin-top: 50px;
+    }
+}
