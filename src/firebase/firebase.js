@@ -2,9 +2,6 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-
 const config = {
   apiKey: "AIzaSyCsn0dN1h5CBViNnkajXubkNvAMmuHZA2Q",
   authDomain: "shop-24ca3.firebaseapp.com",
