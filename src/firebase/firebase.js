@@ -87,36 +87,4 @@ export const convertCollectionsSnapshotToMap = (collections) => {
   return transformCollection;
 };
 
-exports.createPost = functions.https.onRequest((req, res) => {
-  const newPost = {
-    author: req.body.author,
-    description: req.body.description,
-    title: req.body.title,
-  };
-  admin.firestore
-    .collection("posts")
-    .add(newPost)
-    .then((doc) => {
-      res.json({
-        message: `dokument o id ${doc.id} został pomyślnie utworzony w bazie danych`,
-      });
-    });
-});
-
-exports.getPosts = functions.https.onRequest((req, res) => {
-  admin.firestore
-    .collection("posts")
-    .get()
-    .then((data) => {
-      let posts = [];
-      data.docs.forEach((doc) => {
-        posts.push(doc.data());
-      });
-      return res.json(posts);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 export default firebase;
