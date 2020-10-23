@@ -1,0 +1,107 @@
+.container-banner {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+
+    .wrapper-banner {
+        height: 100%;
+        display: flex;
+
+        .banner {
+            height: 100%;
+            width: 80%;
+
+            .banner-des {
+
+                .title-banner {
+                    color: #777a7d;
+                    font-size: 40px;
+                    font-weight: 700;
+                }
+
+                .description-banner {
+                    color: #777a7d;
+                    font-size: 18px;
+                    line-height: 180%;
+                }
+            }
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+
+            .wrapper-img {
+                width: 100%;
+                height: 100%;
+
+
+                .wrapper-price {
+                    width: 85%;
+                    height: 100px;
+                    display: flex;
+                    margin: 0 auto;
+                    justify-content: space-between;
+
+                    .price-off {
+                        display: block;
+                        width: 130px;
+                        height: 130px;
+                        margin-left: 50px;
+                        margin-top: 8px;
+                        z-index: 0;
+                    }
+
+                    .gray {
+                        width: 130px;
+                        height: 130px;
+                        border-radius: 50%;
+                        background-color: #969aa6;
+                        opacity: 0.36;
+                        margin-right: 20px;
+                        margin-top: 40px;
+                        z-index: 0;
+                    }
+                }
+            }
+
+            img {
+                display: block;
+                margin: 0 auto;
+                height: 100%;
+                width: 80%;
+
+            }
+        }
+    }
+}
+
+@media(min-width: 320px) and (orientation:portrait) {
+    .container-banner {
+        width: 100%;
+        margin: 0;
+    }
+
+    .wrapper-banner {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .banner {
+        padding: 15px;
+
+        .banner-des {
+
+            .title-banner {
+                margin: 0;
+                font-size: 28px !important;
+            }
+
+            .description-banner {
+                font-size: 16px !important;
+                text-align: justify;
+            }
+        }
+    }
+
+
+}

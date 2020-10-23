@@ -1,0 +1,192 @@
+.homepage {
+    max-width: 1200px;
+    margin: 50px auto 0 auto;
+    height: 100%;
+
+    // wspólny styl dla nazw
+    .minimal-text {
+        color: #727176;
+        font-family: "Helvetica Neue LT Std - Lt Cn";
+        font-size: 25px;
+        font-weight: 400;
+        letter-spacing: 7.5px;
+    }
+
+    @media (min-width: 1024px) and (orientation: portrait) {
+        .minimal-text {
+            font-size: 40px;
+        }
+    }
+
+
+    @media (min-width: 1366px) and (orientation: landscape) {
+        .minimal-text {
+            font-size: 31px;
+        }
+    }
+
+    //
+    .homepage-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        .one-column {
+            width: 100%;
+            height: 100%;
+
+            .minimal {
+                display: flex;
+                justify-content: center;
+                position: relative;
+                z-index: -1;
+
+                .brush-layer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("../components/images//Brush.webp");
+                    background-size: cover;
+                }
+
+                // minimal-text //
+            }
+
+            .bedroom {
+                margin-top: 50px;
+                text-align: center;
+
+                .short-info {
+                    margin: 25px 0;
+                    font-size: 17px;
+                    line-height: 175%;
+                    color: #727176;
+                    font-family: "Helvetica Neue LT Std - Lt Cn";
+                    font-weight: 400;
+                    letter-spacing: 0.42px;
+                }
+
+                @media (min-width: 1024px) and (orientation: portrait) {
+                    .short-info {
+                        font-size: 30px;
+                    }
+
+                    .minimal-text {
+                        font-size: 40px;
+                    }
+                }
+
+                @media (min-width: 568px) and (orientation: landscape) {
+                    .short-info {
+                        text-align: justify;
+                        padding: 20px;
+                    }
+                }
+
+                @media (min-width: 1366px) and (orientation: landscape) {
+                    .short-info {
+                        font-size: 21px;
+                    }
+                }
+            }
+
+            // icons
+
+            .wrapper-icons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .icons {
+                    display: flex;
+                    justify-content: center;
+                    z-index: -1;
+
+                    .social-icon {
+                        cursor: pointer;
+                        padding: 0 10px;
+                    }
+                }
+
+                .link {
+                    display: block;
+                    margin: 15px 0 35px 0;
+                    color: #727176;
+                    font-family: "Helvetica Neue LT Std - Lt Cn";
+                    font-size: 21px;
+                    font-weight: 400;
+                    letter-spacing: 0.98px;
+                }
+
+                @media (min-width: 1024px) and (orientation: portrait) {
+                    .link {
+                        font-size: 40px;
+                    }
+                }
+
+                @media (min-width: 1366px) and (orientation: landscape) {
+                    .link {
+                        font-size: 31px;
+                    }
+                }
+            }
+        }
+
+        .second-column {
+            width: 100%;
+            min-height: 100%;
+
+            .img-wrapper {
+                width: 100%;
+                height: 100%;
+
+                .main-img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 360px) and (orientation: portrait) {
+    .short-info {
+        text-align: justify;
+        padding: 0 20px;
+    }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+    .homepage .homepage-wrapper {
+        height: 100vh;
+        flex-direction: row;
+    }
+
+    .one-column {
+        display: flex;
+        height: 80vh !important;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}
+
+@media (min-width: 568px) and (orientation: landscape) {
+    .homepage .homepage-wrapper {
+        flex-direction: row;
+    }
+
+    .header .wrapper-pallete {
+        z-index: -1;
+    }
+}
+
+@media (min-width: 1366px) and (orientation: landscape) {
+    .one-column {
+        display: flex;
+        height: 80vh !important;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}

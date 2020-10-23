@@ -1,0 +1,167 @@
+.wrapper-nav {
+    margin: 10px 0;
+    height: 50px;
+    left: 0;
+    right: 0;
+    background-color: #F5F5F5;
+    box-shadow: rgba(0, 0, 0, 0.64) 0px 2px 8px -5px;
+
+    .nav {
+        max-width: 1200px;
+        height: 100%;
+        margin: 0 auto;
+
+        .container-menu {
+            width: 100%;
+            height: 100%;
+
+            .bigger-menu {
+                display: flex;
+                justify-content: space-between;
+                padding: 0;
+
+                .single {
+                    list-style: none;
+                    position: relative;
+
+                    &:hover {
+                        background: rgb(255, 255, 255);
+                        z-index: 4;
+                        box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 2px 1px, rgba(0, 0, 0, 0.16) 0px 4px 8px 0px;
+                        border-radius: 8px 8px 0px 0px;
+                    }
+
+                    &:hover::after {
+                        content: "";
+                        position: absolute;
+                        left: 0px;
+                        bottom: -6px;
+                        height: 12px;
+                        background: rgb(255, 255, 255);
+                        width: 100%;
+                        z-index: 12;
+                        pointer-events: none;
+                        transition: 0.3;
+                    }
+
+                    a {
+                        color: #727176;
+                        text-decoration: none;
+                        font-family: "Helvetica Neue LT Std - Lt Cn";
+                        font-size: 18px;
+                        font-weight: 400;
+                    }
+
+                    .off {
+                        display: none;
+                    }
+
+
+                    .hover-wrapper {
+                        position: absolute;
+                        top: 100%;
+                        min-width: 100%;
+                        height: 400px;
+                        z-index: 11;
+                        background-color: rgb(255, 255, 255);
+                        border-radius: 8px;
+                        box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 2px 1px, rgba(0, 0, 0, 0.16) 0px 4px 8px 0px;
+                        padding: 8px 0px 8px;
+                        left: 0px;
+
+                        .container-flex {
+                            display: flex;
+                            height: 100%;
+                            width: 100%;
+
+                            .furniture {
+
+                                .furniture-links {
+                                    display: flex;
+                                    width: 100%;
+                                    height: 100%;
+                                    flex-direction: column;
+                                    list-style: none;
+
+                                    li {
+                                        padding: 5px 0;
+                                    }
+                                }
+                            }
+
+                            .furniture,
+                            .description,
+                            .img-wrapper {
+                                display: flex;
+                                height: 100%;
+                                width: 100%;
+                                align-items: center;
+                                margin: 0 30px;
+                            }
+
+                            .description {
+                                min-width: 300px;
+
+                                .wrapper-des {
+
+                                    .title {
+                                        font-size: 22px;
+                                        font-weight: 500;
+                                    }
+
+                                    .des {
+                                        line-height: 180%;
+                                        color: #727176;
+                                    }
+
+                                    .price {
+                                        font-size: 21px;
+                                    }
+                                }
+                            }
+
+                            .img-wrapper {
+                                height: 100%;
+                                width: 1000%;
+
+                                .single-img {
+
+                                    .img-chair {
+                                        width: 150px;
+                                        height: 150px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    a {
+                        text-decoration: none;
+                    }
+
+                    .wrapper-icon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        height: 50px;
+                        width: 120px;
+                        color: #727176;
+                        font-weight: 400;
+                        font-family: "Helvetica Neue LT Std - Lt Cn";
+
+                        .icon {
+                            font-size: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media(min-width:320px) and (orientation: portrait) {
+    .wrapper-nav {
+        display: none;
+    }
+}
