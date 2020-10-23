@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import RegisterImg from "../images/register-img.webp";
 import { Link } from "react-router-dom";
 import FormInput from "../form-input/form-input";
+import swal from "sweetalert";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase";
 
-export default class Register extends Component {
+class Register extends Component {
   state = {
     displayName: "",
     email: "",
@@ -13,8 +15,10 @@ export default class Register extends Component {
     confirmPassword: "",
   };
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
+  handleSubmit = async (e, history) => {
+    e.preventDefault();
+
+    console.log(history);
 
     const { email, password, confirmPassword, displayName } = this.state;
 
@@ -35,21 +39,36 @@ export default class Register extends Component {
         password: "",
         confirmPassword: "",
       });
+      swal(
+        "Rejestracja udana!",
+        "Możesz się zalogować do swojego konta!",
+        "success"
+      );
     } catch (error) {
-      console.log(error);
+      swal({
+        title: "Rejestracja nieudana!",
+        text: "Wpisz poprawnie dane i spróbuj ponownie.",
+        icon: "warning",
+        dangerMode: true,
+      });
     }
   };
   handleChange = (e) => {
     const { value, name } = e.target;
 
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value });
   };
   render() {
+    const { history } = this.props;
     return (
       <div className="sign-in">
         <div className="form-wrapper">
           <h3 className="title">Rejestracja</h3>
-          <form action="" onSubmit={this.handleSubmit} className="form">
+          <form
+            action=""
+            onSubmit={(e) => this.handleSubmit(e, history)}
+            className="form"
+          >
             <label htmlFor="" className="label">
               Nick
             </label>
@@ -119,3 +138,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default withRouter(Register);

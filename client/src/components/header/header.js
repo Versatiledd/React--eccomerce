@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 // import gsap animation
 import { TweenMax, Power2 } from "gsap";
 // import icon
@@ -51,6 +50,7 @@ const Header = ({
     } else {
       TweenMax.to(layer, 0.4, { x: "0" });
     }
+    console.log(history);
     // change videos
     // if (showVideo.show) {
     //   TweenMax.to(revealVideo, 0.9, {
@@ -148,7 +148,8 @@ const Header = ({
           </div>
 
           {history.location.pathname === "/logowanie" ||
-          history.location.pathname === "/rejestracja" ? null : (
+          history.location.pathname === "/rejestracja" ||
+          history.location.pathname === "/resetowanie" ? null : (
             <>
               {" "}
               <div className="wrapper-items">
@@ -282,7 +283,8 @@ const Header = ({
         </div>
       </div>
       {history.location.pathname === "/logowanie" ||
-      history.location.pathname === "/rejestracja" ? null : (
+      history.location.pathname === "/rejestracja" ||
+      history.location.pathname === "/resetowanie" ? null : (
         <Menu />
       )}
     </>

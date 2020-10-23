@@ -77,6 +77,12 @@ export default class Signin extends Component {
                   Zaloguj się przy użyciu google
                 </span>
               </button>
+              <Link to="/resetowanie">
+                <button className="submit btn-password">
+                  <span className="login-btn-google">Zapomniałeś hasła?</span>
+                </button>
+              </Link>
+
               <span className="register">
                 Nie posiadasz konta?{" "}
                 <Link

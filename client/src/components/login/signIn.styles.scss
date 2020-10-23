@@ -53,7 +53,9 @@
         .red {
           background-color: #d65f4a;
         }
-
+        .btn-password {
+          background-color: #2196f3;
+        }
         .submit {
           /* Style for "Rectangle" */
           cursor: pointer;
@@ -94,7 +96,7 @@
     flex-direction: column;
 
     .form-wrapper {
-      width: 80%;
+      width: 100%;
       height: 100%;
       margin: 0 auto;
 
@@ -120,24 +122,29 @@
 @media (min-width: 768px) and (orientation: portrait) {
   .sign-in {
     flex-direction: row;
+    align-items: center;
     height: 70vh;
-    margin: 110px 30px;
+    margin: 50px 30px;
 
     .form-wrapper {
       width: 80%;
-      height: 100%;
+      height: 80%;
     }
 
     .img-wrapper {
-      width: 85%;
       display: block;
-      margin-left: 35px;
+      width: 60%;
+      height: 65%;
+      margin: 50px;
     }
   }
 }
 
 @media (min-width: 1024px) and (orientation: portrait) {
   .sign-in {
+    .img-wrapper {
+      height: 85%;
+    }
     .form-wrapper {
       .title {
         font-size: 34px;
@@ -166,7 +173,8 @@
           .submit {
             height: 70px;
 
-            .login-btn {
+            .login-btn,
+            .login-btn-google {
               font-size: 28px;
             }
           }
@@ -177,25 +185,32 @@
         }
       }
     }
-    .sign-in .img-wrapper {
-      width: 70%;
-    }
   }
 }
 
 @media (min-width: 568px) and (orientation: landscape) {
+  .header {
+    .wrapper-header {
+      margin: 20px;
+    }
+  }
   .sign-in {
     flex-direction: row;
 
     .form-wrapper {
       width: 100%;
       height: 100%;
-      margin: 0 20px;
+      padding: 30px;
     }
 
     .img-wrapper {
-      max-width: 50%;
+      height: 90%;
+      max-width: 40%;
     }
+  }
+
+  .sign-in .form-wrapper .form .wrapper-btn .submit {
+    height: 40px;
   }
 }
 
@@ -203,9 +218,10 @@
   .sign-in {
     height: 100%;
     flex-direction: row;
+    justify-content: space-between;
 
     .form-wrapper {
-      width: 80%;
+      width: 40%;
       height: 80%;
       margin: 0 20px;
       border-radius: 16px;
@@ -213,12 +229,12 @@
         rgba(0, 0, 0, 0.08) 0px 2px 4px 0px;
 
       .title {
-        max-width: 60%;
+        max-width: 75%;
         margin: 20px auto 20px auto;
       }
 
       .form {
-        max-width: 60%;
+        max-width: 75%;
         margin: 20px auto;
 
         .group {
@@ -230,7 +246,7 @@
     }
 
     .img-wrapper {
-      max-width: 50%;
+      max-width: 40%;
       max-height: 80%;
     }
   }

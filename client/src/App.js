@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "./pages/Homepage";
 import ShopPage from "./pages/shop/ShopPage";
 import Header from "./components/header/header";
+import ResetPassword from "./components/resetPassword/ResetPassword";
 import {
   auth,
   createUserProfileDocument,
@@ -27,9 +28,12 @@ class App extends React.Component {
       if (userAuth) {
         const useRef = await createUserProfileDocument(userAuth);
 
+        const tokenUser = await userAuth.getIdTokenResult();
+
         useRef.onSnapshot((snapshot) => {
           setCurrentUser({
             id: snapshot.id,
+            tokenUser: tokenUser.token,
             ...snapshot.data(),
           });
         });
@@ -68,7 +72,8 @@ class App extends React.Component {
               )
             }
           />
-          <Route exact path="/rejestracja" component={Register} />
+          <Route path="/rejestracja" component={Register} />
+          <Route path="/resetowanie" component={ResetPassword} />
         </Switch>
       </>
     );
