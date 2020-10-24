@@ -4,6 +4,7 @@ import RegisterImg from "../images/register-img.webp";
 import { Link } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import swal from "sweetalert";
+import { connect } from "react-redux";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase";
 
@@ -14,6 +15,10 @@ class Register extends Component {
     password: "",
     confirmPassword: "",
   };
+
+  componentDidUpdate() {
+    if (this.props.currentUser) this.props.history.push("/dashboard");
+  }
 
   handleSubmit = async (e, history) => {
     e.preventDefault();
@@ -139,4 +144,8 @@ class Register extends Component {
   }
 }
 
-export default withRouter(Register);
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
+});
+
+export default withRouter(connect(mapStateToProps)(Register));
