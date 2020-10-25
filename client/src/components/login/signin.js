@@ -3,14 +3,26 @@ import { Link } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import MainImg from "../images/main-img.webp";
 import "./signIn.styles.scss";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import setCurrentUser from "../../redux/user/user-actions";
 
-import { auth, SignInWithGoogle } from "../../firebase/firebase";
+import { auth, provider } from "../../firebase/firebase";
+import { createOrUpdateUser } from "../../functions/auth";
 
-export default class Signin extends Component {
+class Signin extends Component {
   state = {
     email: "",
     password: "",
     errorMessage: "",
+  };
+
+  roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      this.props.history.push("admin/dashboard");
+    } else {
+      this.props.history.push("user/history");
+    }
   };
 
   handleSubmit = async (event) => {
@@ -18,18 +30,30 @@ export default class Signin extends Component {
 
     const { email, password } = this.state;
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({
-        email: "",
-        password: "",
-      });
+      let result = await auth.signInWithEmailAndPassword(email, password);
+      const { user } = result;
+      const idTokenUser = await user.getIdTokenResult();
+
+      createOrUpdateUser(idTokenUser.token)
+        .then((res) => {
+          this.setState({
+            email: "",
+            password: "",
+          });
+          this.props.setCurrentUser({
+            name: res.data.name,
+            email: res.data.email,
+            token: idTokenUser.token,
+            role: res.data.role,
+            _id: res.data._id,
+          });
+          this.roleBasedRedirect(res);
+        })
+        .catch((err) => console.log(err));
     } catch (error) {
-      this.setState(
-        {
-          errorMessage: error.message,
-        },
-        () => console.log(this.state.errorMessage)
-      );
+      this.setState({
+        errorMessage: error.message,
+      });
     }
   };
   handleChange = (e) => {
@@ -37,8 +61,34 @@ export default class Signin extends Component {
 
     this.setState({ [name]: value });
   };
+
+  async googleLogin(setCurrentUser) {
+    const { history } = this.props;
+    console.log(setCurrentUser);
+    auth
+      .signInWithPopup(provider)
+      .then(async (result) => {
+        const { user } = result;
+        const idTokenUser = await user.getIdTokenResult();
+
+        createOrUpdateUser(idTokenUser.token)
+          .then((res) => {
+            setCurrentUser({
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenUser.token,
+              role: res.data.role,
+              _id: res.data._id,
+            });
+            this.roleBasedRedirect(res);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  }
   render() {
     const { errorMessage } = this.state;
+    const { setCurrentUser } = this.props;
     return (
       <div className="sign-in">
         <div className="img-wrapper">
@@ -72,7 +122,10 @@ export default class Signin extends Component {
               <button type="submit" className="submit blue">
                 <span className="login-btn">Zaloguj się</span>
               </button>
-              <button onClick={SignInWithGoogle} className="submit red">
+              <button
+                onClick={() => this.googleLogin(setCurrentUser)}
+                className="submit red"
+              >
                 <span className="login-btn-google">
                   Zaloguj się przy użyciu google
                 </span>
@@ -104,3 +157,9 @@ export default class Signin extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(Signin));

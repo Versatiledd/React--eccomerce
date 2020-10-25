@@ -1,88 +1,110 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+// components
 import HomePage from "./pages/Homepage";
 import ShopPage from "./pages/shop/ShopPage";
+import History from "./pages/user/History";
 import Header from "./components/header/header";
+import CheckOutPage from "./components/checkOutPage/checkout";
+import Register from "./components/register/register";
+import Dashboard from "./components/dashboard/dashboard";
 import ResetPassword from "./components/resetPassword/ResetPassword";
+//
+
+// firebase
 import {
   auth,
   createUserProfileDocument,
   addCollectionAndDocuments,
 } from "./firebase/firebase";
-import { connect } from "react-redux";
+//
+
+// actions
 import setCurrentUser from "../src/redux/user/user-actions";
 import SignInAndSignUp from "./components/sign-in-register/signInAndRegister";
-import CheckOutPage from "./components/checkOutPage/checkout";
-import Register from "./components/register/register";
-import Dashboard from "./components/dashboard/dashboard";
-import { withRouter } from "react-router-dom";
+//
+import { getCurrentUser } from "./functions/auth";
+//
+import UserRoute from "./components/routes/UserRoute";
 
-class App extends React.Component {
-  unsubscribeFromAuth = null;
+const App = ({ setCurrentUser, currentUser }) => {
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const tokenUser = await user.getIdTokenResult();
 
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const useRef = await createUserProfileDocument(userAuth);
-
-        const tokenUser = await userAuth.getIdTokenResult();
-
-        useRef.onSnapshot((snapshot) => {
-          setCurrentUser({
-            id: snapshot.id,
-            tokenUser: tokenUser.token,
-            ...snapshot.data(),
-          });
-        });
+        getCurrentUser(tokenUser.token)
+          .then((res) => {
+            setCurrentUser({
+              name: res.data.name,
+              email: res.data.email,
+              token: tokenUser.token,
+              role: res.data.role,
+              _id: res.data._id,
+            });
+          })
+          .catch((err) => console.log(err));
       }
-      setCurrentUser(userAuth);
-      // dodanie do bazy danych produktów
-
-      // addCollectionAndDocuments(
-      //   "collections",
-      //   collectionsArray.map(({ title, items }) => ({ title, items }))
-      // );
     });
-  }
+    return () => unsubscribe();
+  }, []);
+  // unsubscribeFromAuth = null;
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // componentDidMount() {
+  //   console.log("wołam");
+  //   const { setCurrentUser, currentUser } = this.props;
 
-  render() {
-    return (
-      <>
-        <Header />
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/home" exact component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route path="/checkout" exact component={CheckOutPage} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route
-            path="/logowanie"
-            render={() =>
-              this.props.currentUser ? (
-                <Redirect to="/dashboard" />
-              ) : (
-                <SignInAndSignUp />
-              )
-            }
-          />
-          <Route path="/rejestracja" component={Register} />
-          <Route path="/resetowanie" component={ResetPassword} />
-        </Switch>
-      </>
-    );
-  }
-}
+  //   console.log(currentUser);
+
+  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+  //     if (userAuth) {
+  //       const useRef = await createUserProfileDocument(userAuth);
+
+  //       const tokenUser = await userAuth.getIdTokenResult();
+
+  //       setCurrentUser({
+  //         email: userAuth.email,
+  //         tokenUser: tokenUser.token,
+  //       });
+  //     }
+  //     setCurrentUser(userAuth);
+  // dodanie do bazy danych produktów
+
+  // addCollectionAndDocuments(
+  //   "collections",
+  //   collectionsArray.map(({ title, items }) => ({ title, items }))
+  // );
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
+
+  return (
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route path="/checkout" component={CheckOutPage} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/logowanie" component={SignInAndSignUp} />
+        <Route path="/rejestracja" component={Register} />
+        <Route path="/resetowanie" component={ResetPassword} />
+        <UserRoute path="/user/history" component={History} />
+      </Switch>
+    </>
+  );
+};
 
 const mapStateToProps = ({ user: { currentUser }, shop: { collections } }) => ({
   currentUser,
-  // collectionsArray: collections,
+  collectionsArray: collections,
 });
 
 const mapDispatchToProps = (dispatch) => ({

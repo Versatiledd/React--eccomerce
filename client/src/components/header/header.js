@@ -15,6 +15,8 @@ import { openMenu } from "../../redux/menu/menu.action";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import { logoutCurrentUser } from "../../redux/user/user-actions";
+
 import "./header.styles.scss";
 
 // import bigger menu
@@ -29,6 +31,7 @@ const Header = ({
   cartItems,
   itemCount,
   history,
+  logoutCurrentUser,
 }) => {
   const [showVideo, setCureentVideo] = useState({
     show: false,
@@ -50,20 +53,13 @@ const Header = ({
     } else {
       TweenMax.to(layer, 0.4, { x: "0" });
     }
-    console.log(history);
-    // change videos
-    // if (showVideo.show) {
-    //   TweenMax.to(revealVideo, 0.9, {
-    //     opacity: "0",
-    //     ease: Power2.easeInOut,
-    //   });
-    // } else {
-    //   TweenMax.to(revealVideo, 0.9, {
-    //     opacity: "1",
-    //     ease: Power2.easeInOut,
-    //   });
-    // }
   }, [isOpen, onHover, onHoverCart, showVideo]);
+
+  const logout = () => {
+    auth.signOut();
+    logoutCurrentUser(null);
+  };
+
   return (
     <>
       <div className="layer" ref={(el) => (layer = el)}>
@@ -185,7 +181,7 @@ const Header = ({
                           <Link to="/">
                             <button
                               className="login-btn"
-                              onClick={() => auth.signOut()}
+                              onClick={() => logout()}
                             >
                               Wyloguj się
                             </button>
@@ -293,6 +289,7 @@ const Header = ({
 
 const mapDispatchToProps = (dispatch) => ({
   openMenu: (menu) => dispatch(openMenu(menu)),
+  logoutCurrentUser: (user) => dispatch(logoutCurrentUser(user)),
 });
 
 const mapStateToProps = ({

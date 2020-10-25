@@ -7,6 +7,8 @@ import swal from "sweetalert";
 import { connect } from "react-redux";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase";
+import { createOrUpdateUser } from "../../functions/auth";
+import setCurrentUser from "../../redux/user/user-actions";
 
 class Register extends Component {
   state = {
@@ -23,8 +25,6 @@ class Register extends Component {
   handleSubmit = async (e, history) => {
     e.preventDefault();
 
-    console.log(history);
-
     const { email, password, confirmPassword, displayName } = this.state;
 
     if (password !== confirmPassword) {
@@ -37,6 +37,21 @@ class Register extends Component {
         password
       );
       await createUserProfileDocument(user, { displayName });
+
+      const idTokenUser = await user.getIdTokenResult();
+
+      createOrUpdateUser(idTokenUser.token)
+        .then((res) => {
+          setCurrentUser({
+            name: res.data.name,
+            email: res.data.email,
+            token: idTokenUser.token,
+            role: res.data.role,
+            _id: res.data._id,
+          });
+          history.push("/");
+        })
+        .catch((err) => console.log(err));
 
       this.setState({
         displayName: "",
@@ -144,8 +159,14 @@ class Register extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
 const mapStateToProps = ({ user: { currentUser } }) => ({
   currentUser,
 });
 
-export default withRouter(connect(mapStateToProps)(Register));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Register)
+);
