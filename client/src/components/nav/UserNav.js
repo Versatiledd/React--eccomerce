@@ -1,18 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./user-nav.scss";
 
 const UserNav = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/moje-zakupy">Historia zakupów</Link>
+    <nav className="nav-container">
+      <ul className="nav-wrapper">
+        <li className="single-wrapper">
+          <Link to="/user/orders" className="single-link">
+            Zamówienia
+          </Link>
         </li>
-        <li>
-          <Link to="/moje-zakupy">Resetowanie hasła</Link>
+        <li className="single-wrapper">
+          <Link to="/user/wishlist" className="single-link">
+            Listy zakupowe
+          </Link>
         </li>
-        <li>
-          <Link to="/moje-zakupy">Ustawienia konta</Link>
+        <li className="single-wrapper">
+          <Link to="/user/password" className="single-link">
+            Resetowanie hasła
+          </Link>
         </li>
       </ul>
     </nav>

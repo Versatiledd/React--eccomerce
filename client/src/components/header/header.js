@@ -159,10 +159,12 @@ const Header = ({
                   </div>
                   {currentUser ? (
                     <span className="user-account">
-                      Witaj, {currentUser.displayName}
+                      Witaj, {currentUser.name}
                     </span>
                   ) : (
-                    <span className="user-account">Twoje konto</span>
+                    <>
+                      <span className="user-account">Twoje konto</span>{" "}
+                    </>
                   )}
 
                   <motion.div
@@ -177,16 +179,51 @@ const Header = ({
                   >
                     <div className="container-login">
                       <div className="btn-wrapper">
-                        {currentUser ? (
-                          <Link to="/">
-                            <button
-                              className="login-btn"
-                              onClick={() => logout()}
-                            >
-                              Wyloguj się
-                            </button>
-                          </Link>
-                        ) : (
+                        {currentUser && currentUser.role === "admin" && (
+                          <>
+                            <Link to="/admin/dashboard">
+                              <button
+                                className="login-btn"
+                                style={{
+                                  margin: "10px 0",
+                                }}
+                              >
+                                Panel admina
+                              </button>
+                            </Link>
+                            <Link to="/">
+                              <button
+                                className="login-btn"
+                                onClick={() => logout()}
+                              >
+                                Wyloguj się
+                              </button>
+                            </Link>{" "}
+                          </>
+                        )}
+                        {currentUser && currentUser.role === "subscriber" && (
+                          <>
+                            <Link to="/user/history">
+                              <button
+                                className="login-btn"
+                                style={{
+                                  margin: "10px 0",
+                                }}
+                              >
+                                Panel użytkownika
+                              </button>
+                            </Link>
+                            <Link to="/">
+                              <button
+                                className="login-btn"
+                                onClick={() => logout()}
+                              >
+                                Wyloguj się
+                              </button>
+                            </Link>{" "}
+                          </>
+                        )}
+                        {!currentUser && (
                           <>
                             <Link to="/logowanie">
                               <button className="login-btn">Zaloguj się</button>

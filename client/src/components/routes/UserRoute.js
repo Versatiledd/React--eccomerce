@@ -5,10 +5,9 @@ import RedirectUser from "./RedirectUser";
 
 const UserRoute = ({ children, ...rest }) => {
   const { currentUser } = useSelector((state) => state.user);
-  return currentUser && currentUser.token ? (
-    <Route {...rest} render={() => children} />
-  ) : (
-    <RedirectUser />
+  return (
+    currentUser &&
+    currentUser.token && <Route {...rest} render={() => children} />
   );
 };
 

@@ -15,6 +15,16 @@ import Dashboard from "./components/dashboard/dashboard";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 //
 
+// pages
+import Password from "./pages/user/Password";
+import Wishlist from "./pages/user/Wishlist";
+import Orders from "./pages/user/Orders";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+// category
+import CategoryCreate from "./pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
+
 // firebase
 import {
   auth,
@@ -30,6 +40,7 @@ import SignInAndSignUp from "./components/sign-in-register/signInAndRegister";
 import { getCurrentUser } from "./functions/auth";
 //
 import UserRoute from "./components/routes/UserRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 
 const App = ({ setCurrentUser, currentUser }) => {
   useEffect(() => {
@@ -97,6 +108,12 @@ const App = ({ setCurrentUser, currentUser }) => {
         <Route path="/rejestracja" component={Register} />
         <Route path="/resetowanie" component={ResetPassword} />
         <UserRoute path="/user/history" component={History} />
+        <UserRoute path="/user/password" component={Password} />
+        <UserRoute path="/user/wishlist" component={Wishlist} />
+        <UserRoute path="/user/orders" component={Orders} />
+        <AdminRoute path="/admin/dashboard" component={AdminDashboard} />
+        <AdminRoute path="/admin/kategorie" exact component={CategoryCreate} />
+        <AdminRoute path="/admin/kategorie/:slug" component={CategoryUpdate} />
       </Switch>
     </>
   );

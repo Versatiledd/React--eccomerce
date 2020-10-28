@@ -2,7 +2,7 @@ import React from "react";
 import UserNav from "../../components/nav/UserNav";
 import "./history.scss";
 
-const History = () => {
+const Orders = () => {
   return (
     <div className="main-container">
       <UserNav />
@@ -11,10 +11,10 @@ const History = () => {
           minWidth: "80%",
         }}
       >
-        to jest komponent z linku
+        user buying products
       </div>
     </div>
   );
 };
 
-export default History;
+export default Orders;
