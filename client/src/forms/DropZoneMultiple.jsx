@@ -7,83 +7,97 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 class DropZoneMultipleField extends PureComponent {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string,
-        })
-      ),
-    ]).isRequired,
+  // static propTypes = {
+  //   onChange: PropTypes.func.isRequired,
+  //   name: PropTypes.string.isRequired,
+  //   value: PropTypes.oneOfType([
+  //     PropTypes.string,
+  //     PropTypes.arrayOf(
+  //       PropTypes.shape({
+  //         name: PropTypes.string,
+  //       })
+  //     ),
+  //   ]).isRequired,
+  // };
+
+  state = {
+    images: [],
   };
-
-  constructor() {
-    super();
-    this.state = {
-      base64: null,
-    };
-    this.onDrop = this.onDrop.bind(this);
-  }
-
-  handleImage = (files) => {
-    const uploadImages = [];
-    files.map((fl) => {
-      return Resizer.imageFileResizer(
+  getInfo = (files) => {
+    console.log(files);
+    const { token } = this.props.currentUser;
+    let uploadFiles = [];
+    files.map((fl, i) => {
+      Resizer.imageFileResizer(
         fl,
-        500,
-        500,
+        400,
+        400,
         "JPEG",
         100,
         0,
         (uri) => {
           axios
             .post(
-              "http://localhost:3000/api/uploadimages",
+              "http://localhost:5000/api/uploadimages",
               { image: uri },
               {
-                headers: { "Access-Control-Allow-Origin": true },
+                headers: {
+                  "Access-Control-Allow-Origin": true,
+                  authtoken: token ? token : "",
+                },
               }
             )
             .then((res) => {
-              uploadImages.push(res.data);
-            })
-            .catch((err) => console.log(err));
+              uploadFiles.push(res.data);
+              this.setState({
+                images: [...uploadFiles],
+              });
+            });
         },
         "base64"
       );
     });
-    console.log(uploadImages);
-    return "axax";
+    return uploadFiles;
+  };
+
+  handleImage = (files) => {
+    if (files) {
+      return this.getInfo(files);
+    }
   };
 
   onDrop(files) {
-    const { value, onChange } = this.props;
-    console.log(this.props);
-    const y = this.handleImage(files);
-    // });
-    onChange(() => y);
+    const { value, onChange } = this.props.input;
 
-    // onChange(
-    //   files.map((fl) =>
-    //     Object.assign(fl, {
-    //       preview: URL.createObjectURL(fl),
-    //     })
-    //   )
-    // );
+    const y = this.handleImage(files);
+
+    onChange(y);
   }
 
   removeFile = (index, e) => {
-    const { value, onChange } = this.props;
+    const { value, onChange } = this.props.input;
+    console.log(index);
+    const files = this.state.images;
     e.preventDefault();
-    onChange(value.filter((val, i) => i !== index));
+    onChange(
+      files.filter((fl, i) => {
+        if (i !== index) {
+          this.setState(
+            {
+              images: fl[index],
+            },
+            () => console.log(this.state.images)
+          );
+        }
+      })
+    );
   };
 
   render() {
-    const { name, value } = this.props;
-    const files = value;
+    const { name, value } = this.props.input;
+    const files = this.state.images;
+
+    console.log(files);
 
     return (
       <div className="dropzone dropzone--multiple">
@@ -109,11 +123,16 @@ class DropZoneMultipleField extends PureComponent {
         {files && Array.isArray(files) && (
           <div className="dropzone__imgs-wrapper">
             {files.map((file, i) => (
-              <div
-                className="dropzone__img"
-                key={i}
-                style={{ backgroundImage: `url(${file.preview})` }}
-              >
+              <div className="dropzone__img" key={i}>
+                <img
+                  src={file.url}
+                  alt=""
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    backgroundSize: "cover",
+                  }}
+                />
                 {/* <p className="dropzone__img-name">{file.name}</p> */}
                 <button
                   className="dropzone__img-delete"
@@ -131,20 +150,21 @@ class DropZoneMultipleField extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ currentUser }) => ({
-  currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
 });
 
-const renderDropZoneMultipleField = (props) => {
-  const { input } = props;
-  return <DropZoneMultipleField {...input} />;
-};
+// const renderDropZoneMultipleField = (props) => {
+//   const { input } = props;
+//   console.log(input);
+//   return <DropZoneMultipleField {...input} />;
+// };
 
-renderDropZoneMultipleField.propTypes = {
-  input: PropTypes.shape({
-    onChange: PropTypes.func,
-    name: PropTypes.string,
-  }).isRequired,
-};
+// renderDropZoneMultipleField.propTypes = {
+//   input: PropTypes.shape({
+//     onChange: PropTypes.func,
+//     name: PropTypes.string,
+//   }).isRequired,
+// };
 
-export default connect(mapStateToProps)(renderDropZoneMultipleField);
+export default connect(mapStateToProps)(DropZoneMultipleField);

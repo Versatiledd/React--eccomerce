@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, ButtonToolbar } from "reactstrap";
 import { Field, reduxForm } from "redux-form";
+import Dropzone from "react-dropzone";
 // import "../../../../../scss/admin/eccomerce-forms/createForm.scss";
 import renderDropZoneMultipleField from "../../../../forms/DropZoneMultiple";
 import { getProduct, updateProduct } from "../../../../functions/product";
 import { useSelector } from "react-redux";
+import Resizer from "react-image-file-resizer";
+import axios from "axios";
 
 import { connect } from "react-redux";
 import { getCategories, getCategorySubs } from "../../../../functions/category";
@@ -19,10 +22,9 @@ const ProductCreateForm = ({
   const { currentUser } = useSelector((state) => state.user);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubCategories] = useState([]);
+  const [images, setImages] = useState([]);
   const { slug } = useParams();
   const history = useHistory();
-
-  console.log(subcategories);
 
   useEffect(() => {
     getSingleProduct();
@@ -37,6 +39,7 @@ const ProductCreateForm = ({
         getCategorySubs(res.data.category).then((s) =>
           setSubCategories(s.data)
         );
+        setImages(res.data.images);
       })
       .catch((err) => console.log(err));
   };
@@ -67,6 +70,156 @@ const ProductCreateForm = ({
       })
       .catch((err) => console.log(err));
   };
+
+  const getInfo = (files) => {
+    let uploadFiles = [];
+    files.map((fl, i) => {
+      Resizer.imageFileResizer(
+        fl,
+        400,
+        400,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          axios
+            .post(
+              "http://localhost:5000/api/uploadimages",
+              { image: uri },
+              {
+                headers: {
+                  "Access-Control-Allow-Origin": true,
+                  authtoken: currentUser.token ? currentUser.token : "",
+                },
+              }
+            )
+            .then((res) => {
+              uploadFiles.push(res.data);
+              setImages(uploadFiles);
+            });
+        },
+        "base64"
+      );
+    });
+    return uploadFiles;
+  };
+
+  const handleImage = (files) => {
+    if (files) {
+      return getInfo(files);
+    }
+  };
+
+  const onDrop = (files, onChange) => {
+    const y = handleImage(files);
+    onChange(y);
+  };
+
+  const removeFile = (index, e, onChange) => {
+    e.preventDefault();
+    // usuń state images globalnie z redux form
+    onChange(images.filter((fl, i) => i !== index));
+    // usuń state w aktualnym komponencie
+    const removeImage = images.filter((fl, i) => i !== index);
+    setImages(removeImage);
+  };
+
+  const renderImages = (props) => {
+    const { onChange } = props.input;
+    return (
+      <div className="dropzone dropzone--multiple">
+        <Dropzone
+          className="dropzone__input"
+          accept="image/jpeg, image/png"
+          onDrop={(filesToUpload) => onDrop(filesToUpload, onChange)}
+        >
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} className="dropzone__input">
+              {(!images || images.length === 0) && (
+                <div className="dropzone__drop-here">
+                  <span className="lnr lnr-upload"> Upuść plik </span>
+                </div>
+              )}
+              <input {...getInputProps()} />
+            </div>
+          )}
+        </Dropzone>
+        {images && Array.isArray(images) && (
+          <div className="dropzone__imgs-wrapper">
+            {images.map((file, i) => (
+              <div className="dropzone__img" key={i}>
+                <img
+                  src={file.url}
+                  alt=""
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    backgroundSize: "cover",
+                  }}
+                />
+                {/* <p className="dropzone__img-name">{file.name}</p> */}
+                <button
+                  className="dropzone__img-delete"
+                  type="button"
+                  onClick={(e) => removeFile(i, e, onChange)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      // <div className="dropzone dropzone--multiple">
+      //   <Dropzone
+      //     className="dropzone__input"
+      //     accept="image/jpeg, image/png"
+      //     name={name}
+      //     onDrop={(filesToUpload) => {
+      //       this.onDrop(value ? value.concat(filesToUpload) : filesToUpload);
+      //     }}
+      //   >
+      //     {({ getRootProps, getInputProps }) => (
+      //       <div {...getRootProps()} className="dropzone__input">
+      //         {(!files || files.length === 0) && (
+      //           <div className="dropzone__drop-here">
+      //             <span className="lnr lnr-upload"> Upuść plik </span>
+      //           </div>
+      //         )}
+      //         <input {...getInputProps()} />
+      //       </div>
+      //     )}
+      //   </Dropzone>
+      //   {files && Array.isArray(files) && (
+      //     <div className="dropzone__imgs-wrapper">
+      //       {files.map((file, i) => (
+      //         <div className="dropzone__img" key={i}>
+      //           <img
+      //             src={file.url}
+      //             alt=""
+      //             style={{
+      //               width: "150px",
+      //               height: "150px",
+      //               backgroundSize: "cover",
+      //             }}
+      //           />
+      //           {/* <p className="dropzone__img-name">{file.name}</p> */}
+      //           <button
+      //             className="dropzone__img-delete"
+      //             type="button"
+      //             onClick={(e) => this.removeFile(i, e)}
+      //           >
+      //             Remove
+      //           </button>
+      //         </div>
+      //       ))}
+      //     </div>
+      //   )}
+      // </div>
+    );
+  };
+
   return (
     <>
       <form
@@ -189,7 +342,8 @@ const ProductCreateForm = ({
               <div className="form__form-group-field">
                 <Field
                   name="images"
-                  component={renderDropZoneMultipleField}
+                  component={renderImages}
+                  // component={renderDropZoneMultipleField}
                   autoComplete="off"
                 />
               </div>
@@ -214,8 +368,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getValueFromSingleProduct(value)),
 });
 
-const mapStateToProps = ({ formSingleValue }) => ({
-  initialValues: formSingleValue.valueFrom,
+const mapStateToProps = (state) => ({
+  initialValues: state.formSingleValue.valueFrom,
 });
 
 export default connect(

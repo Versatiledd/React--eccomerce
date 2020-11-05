@@ -83,16 +83,36 @@ export const ProductList = ({ getValueFromSingleProduct }) => {
                     return (
                       <tr key={id}>
                         <th>{title}</th>
-                        <th>
-                          {images.length > 0
-                            ? images.map((img) => {
-                                if (img.preview) {
-                                  return <div></div>;
-                                } else {
-                                  return <p>Brak zdjęcia</p>;
+                        <th
+                          className="img-container"
+                          style={{
+                            minWidth: "200px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              width: "80px",
+                              height: "80px",
+                            }}
+                          >
+                            {images.length > 0 &&
+                              images.map((img) => {
+                                if (img.url) {
+                                  return (
+                                    <img
+                                      src={img.url}
+                                      alt=""
+                                      style={{
+                                        height: "100%",
+                                        width: "100%",
+                                        margin: "0 10px",
+                                      }}
+                                    />
+                                  );
                                 }
-                              })
-                            : "Brak zdjęć"}{" "}
+                              })}
+                          </div>
                         </th>
                         <th>{quantity}</th>
                         <th>Kolor</th>

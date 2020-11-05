@@ -12,16 +12,18 @@ const SingleProduct = ({ product, addItem }) => {
       className="container-products"
       onClick={() => history.push(`/product/${product.slug}`)}
     >
-      <div>singleProduct</div>
       <div className="single-product">
-        <div
-          className="wrapper-image"
-          style={{
-            // backgroundImage: `url(${imageUrl})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "contain",
-          }}
-        ></div>
+        <div className="wrapper-image">
+          <img
+            src={product.images.length > 0 ? product.images[0].url : null}
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "contain",
+            }}
+          />
+        </div>
         <span className="name">{product.title}</span>
         <p className="description">{product.description}</p>
         <div className="price-wrapper">
