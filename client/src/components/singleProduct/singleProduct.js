@@ -3,29 +3,31 @@ import { connect } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import "./singleProduct.scss";
 import { addItem } from "../../redux/cart/cart.actions";
+import { useHistory } from "react-router-dom";
 
-const SingleProduct = ({ item, addItem }) => {
-  const { imageUrl, name, description, price } = item;
+const SingleProduct = ({ product, addItem }) => {
+  const history = useHistory();
   return (
     <div
       className="container-products"
-      onClick={() => console.log("get function")}
+      onClick={() => history.push(`/product/${product.slug}`)}
     >
+      <div>singleProduct</div>
       <div className="single-product">
         <div
           className="wrapper-image"
           style={{
-            backgroundImage: `url(${imageUrl})`,
+            // backgroundImage: `url(${imageUrl})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
           }}
         ></div>
-        <span className="name">{name}</span>
-        <p className="description">{description}</p>
+        <span className="name">{product.title}</span>
+        <p className="description">{product.description}</p>
         <div className="price-wrapper">
-          <span className="price">{price} zł</span>
+          <span className="price">{product.price} zł</span>
           <AiOutlineShoppingCart
-            onClick={() => addItem(item)}
+            onClick={() => addItem(product)}
             style={{
               fontSize: "25px",
               color: "yellowgreen",

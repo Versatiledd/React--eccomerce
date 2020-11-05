@@ -1,0 +1,11 @@
+.dashboard__chart-legend {
+  .parent-legend {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+
+    .title-legend {
+      margin: 0;
+    }
+  }
+}

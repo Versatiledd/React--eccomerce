@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
+
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -11,7 +11,6 @@ import History from "./pages/user/History";
 import Header from "./components/header/header";
 import CheckOutPage from "./components/checkOutPage/checkout";
 import Register from "./components/register/register";
-import Dashboard from "./components/dashboard/dashboard";
 import ResetPassword from "./components/resetPassword/ResetPassword";
 //
 
@@ -20,10 +19,16 @@ import Password from "./pages/user/Password";
 import Wishlist from "./pages/user/Wishlist";
 import Orders from "./pages/user/Orders";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminCreateProduct from "./pages/admin/AdminCreateProduct";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminUpdateProduct from "./pages/admin/AdminUpdateProduct";
 
 // category
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
+// sub category
+import SubCreate from "./pages/admin/sub/SubCreate";
+import SubUpdate from "./pages/admin/sub/SubUpdate";
 
 // firebase
 import {
@@ -41,7 +46,8 @@ import { getCurrentUser } from "./functions/auth";
 //
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
-
+import "bootstrap/dist/css/bootstrap.css";
+import "./App.css";
 const App = ({ setCurrentUser, currentUser }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -103,7 +109,6 @@ const App = ({ setCurrentUser, currentUser }) => {
         <Route path="/" exact component={HomePage} />
         <Route path="/shop" component={ShopPage} />
         <Route path="/checkout" component={CheckOutPage} />
-        <Route path="/dashboard" component={Dashboard} />
         <Route path="/logowanie" component={SignInAndSignUp} />
         <Route path="/rejestracja" component={Register} />
         <Route path="/resetowanie" component={ResetPassword} />
@@ -114,6 +119,19 @@ const App = ({ setCurrentUser, currentUser }) => {
         <AdminRoute path="/admin/dashboard" component={AdminDashboard} />
         <AdminRoute path="/admin/kategorie" exact component={CategoryCreate} />
         <AdminRoute path="/admin/kategorie/:slug" component={CategoryUpdate} />
+        <AdminRoute path="/admin/sub" exact component={SubCreate} />
+        <AdminRoute path="/admin/sub/:slug" component={SubUpdate} />
+        <AdminRoute
+          path="/admin/product"
+          exact
+          component={AdminCreateProduct}
+        />
+        <AdminRoute path="/admin/products" exact component={AdminProducts} />
+        <AdminRoute
+          path="/admin/product/:slug"
+          exact
+          component={AdminUpdateProduct}
+        />
       </Switch>
     </>
   );

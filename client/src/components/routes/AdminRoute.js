@@ -9,32 +9,23 @@ const AdminRoute = ({ children, ...rest }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [okay, setOkay] = useState(false);
 
-  const [count, setCount] = useState(5);
-  let history = useHistory();
-
   useEffect(() => {
     if (currentUser && currentUser.token) {
       currentAdmin(currentUser.token)
         .then((res) => {
-          console.log("Witaj admin", res);
+          console.log("Witaj admin", res.data);
           setOkay(true);
         })
         .catch((err) => {
-          const interval = setInterval(() => {
-            setCount((count) => --count);
-          }, 200);
-          console.log(count);
-
-          count === 0 && history.push("/");
-
           setOkay(false);
-          return () => clearInterval(interval);
         });
     }
     return () => {};
-  }, [currentUser, okay, count]);
+  }, [currentUser]);
 
-  return <>{okay && <Route {...rest} />}</>;
+  return (
+    <>{okay ? <Route {...rest} render={() => children} /> : <RedirectUser />}</>
+  );
 };
 
 export default AdminRoute;

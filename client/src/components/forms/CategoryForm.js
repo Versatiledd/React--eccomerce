@@ -7,12 +7,24 @@ const CategoryForm = ({
   handleSubmit,
   keyword,
   handleSearchWithKeyword,
+  pathUrl,
+  categories,
+  setParentCategory,
 }) => {
   return (
     <form className="form-category" onSubmit={handleSubmit}>
       <div className="form-container">
         <div className="search-input">
-          <h4 className="ctg-title">Stwórz nową kategorię dla produktów.</h4>
+          {pathUrl === "/admin/kategorie" && (
+            <h4 className="ctg-title">Stwórz nową kategorię dla produktów.</h4>
+          )}
+          {pathUrl === "/admin/sub" && (
+            <>
+              <h4 className="ctg-title">
+                Stwórz nową podkategorię dla produktów.
+              </h4>
+            </>
+          )}
           <input
             type="search"
             value={keyword}
@@ -22,18 +34,68 @@ const CategoryForm = ({
             placeholder="Szukaj po frazie"
           />
         </div>
-
         <div className="category-wrapper">
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoFocus
-            required
-            className="ctg-input"
-            placeholder="Dodaj kategorię"
-          />
-          <button className="btn-category">Stwórz kategorię</button>
+          {/* <div className="form__form-group">
+            <span className="form__form-group-label">Select Option</span>
+            <div className="form__form-group-field">
+              <Field
+                name="select"
+                component={renderSelectField}
+                className="form__form-group-input-wrap--error-above"
+                type="text"
+                options={[
+                  { value: "one", label: "One" },
+                  { value: "two", label: "Two" },
+                ]}
+              />
+            </div>
+          </div> */}
+          {pathUrl === "/admin/sub" && (
+            <>
+              <select
+                name="category"
+                onChange={(e) => setParentCategory(e.target.value)}
+                className="category-select"
+                autoFocus
+              >
+                <option>Wybierz kategorię</option>
+                {categories.length > 0 &&
+                  categories.map((c) => (
+                    <option key={c._id} value={c._id}>
+                      {c.name}
+                    </option>
+                  ))}
+              </select>
+            </>
+          )}
+          {pathUrl === "/admin/kategorie" && (
+            <>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                autoFocus
+                required
+                className="ctg-input"
+                placeholder="Kategoria"
+              />
+              <button className="btn-category">Stwórz kategorię</button>{" "}
+            </>
+          )}
+          {pathUrl === "/admin/sub" && (
+            <>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                autoFocus
+                required
+                className="ctg-input"
+                placeholder="Nowa podkategoria"
+              />
+              <button className="btn-category">Stwórz podkategorię</button>
+            </>
+          )}
         </div>
       </div>
     </form>

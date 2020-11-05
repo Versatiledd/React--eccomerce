@@ -10,10 +10,13 @@ import { useSelector } from "react-redux";
 export default function ResetPassword({ history }) {
   const [email, setEmail] = useState("");
   const { currentUser } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state);
 
-  console.log(currentUser);
+  console.log(user.currentUser);
 
   useEffect(() => {
+    console.log(currentUser);
+
     if (currentUser) history.push("/dashboard");
   }, [currentUser]);
 

@@ -14,12 +14,13 @@ import { useHistory } from "react-router-dom";
 
 import CategoryForm from "../../../components/forms/CategoryForm";
 
-const CategoryCreate = () => {
+const CategoryCreate = ({ match }) => {
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [keyword, setKeyword] = useState("");
   const { currentUser } = useSelector((state) => state.user);
   let history = useHistory();
+  const pathUrl = match.path;
 
   useEffect(() => {
     loadCategories();
@@ -95,6 +96,7 @@ const CategoryCreate = () => {
             handleSubmit={handleSubmit}
             keyword={keyword}
             handleSearchWithKeyword={handleSearchWithKeyword}
+            pathUrl={pathUrl}
           />
           {categories.filter(searched(keyword)).map((category) => (
             <div className="parent-category" key={category._id}>

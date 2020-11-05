@@ -13,7 +13,7 @@ const AdminNav = () => {
         </li>
         <li className="single-wrapper">
           <Link to="/admin/product" className="single-link">
-            Dodaj product
+            Dodaj produkt
           </Link>
         </li>
         <li className="single-wrapper">

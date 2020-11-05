@@ -1,100 +1,100 @@
 .wrapper-shop {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+  display: flex;
+  max-width: 1200px;
+  margin: 50px auto 0 auto;
+
+  .left-wrapper {
+    height: 100%;
+    min-width: 20%;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 8px;
+    margin-right: 50px;
+
+    .filter-text {
+      font-size: 22px;
+      color: #5f5d5d;
+      margin: 20px;
     }
 
+    .producents {
+      padding: 0 20px;
+      border: 1px solid rgb(238, 238, 238);
+
+      .producent-text {
+        letter-spacing: 1px;
+        font-size: 14px;
+        color: black;
+        font-weight: 600;
+      }
+
+      .single-prod {
+        display: flex;
+        margin: 20px 0;
+
+        input[type="checkbox"] {
+          cursor: pointer;
+          display: block;
+          height: 18px;
+          width: 20px;
+          margin: 0;
+          padding: 0;
+        }
+
+        span {
+          color: #5f5d5d;
+          font-weight: lighter;
+          display: block;
+          margin: 0 10px;
+          font-size: 15px;
+          letter-spacing: 1px;
+        }
+      }
+    }
+
+    .price {
+      padding: 0 20px;
+
+      .price-text {
+        letter-spacing: 1px;
+        font-size: 14px;
+        color: black;
+        font-weight: 600;
+      }
+
+      .wrapper-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+
+        .minus {
+          font-size: 25px;
+          color: #5f5d5d;
+        }
+
+        .price-input {
+          cursor: pointer;
+          width: 90px;
+          height: 20px;
+          border-radius: 300px;
+          color: rgb(49, 45, 45);
+          border: 1px solid rgb(167, 162, 162);
+          padding: 10px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .right-wrapper {
     display: flex;
-    max-width: 1200px;
-    margin: 50px auto 0 auto;
-
-    .left-wrapper {
-        height: 100%;
-        min-width: 25%;
-        border: 1px solid rgb(238, 238, 238);
-        border-radius: 8px;
-
-        .filter-text {
-            font-size: 22px;
-            color: #5f5d5d;
-            margin: 20px;
-        }
-
-        .producents {
-            padding: 0 20px;
-            border: 1px solid rgb(238, 238, 238);
-
-            .producent-text {
-                letter-spacing: 1px;
-                font-size: 14px;
-                color: black;
-                font-weight: 600;
-            }
-
-            .single-prod {
-                display: flex;
-                margin: 20px 0;
-
-                input[type="checkbox"] {
-                    cursor: pointer;
-                    display: block;
-                    height: 18px;
-                    width: 20px;
-                    margin: 0;
-                    padding: 0;
-
-                }
-
-                span {
-                    color: #5f5d5d;
-                    font-weight: lighter;
-                    display: block;
-                    margin: 0 10px;
-                    font-size: 15px;
-                    letter-spacing: 1px;
-                }
-            }
-        }
-
-        .price {
-            padding: 0 20px;
-
-            .price-text {
-                letter-spacing: 1px;
-                font-size: 14px;
-                color: black;
-                font-weight: 600;
-            }
-
-            .wrapper-price {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: 20px 0;
-
-                .minus {
-                    font-size: 25px;
-                    color: #5f5d5d;
-                }
-
-                .price-input {
-                    cursor: pointer;
-                    width: 90px;
-                    height: 20px;
-                    border-radius: 300px;
-                    color: rgb(49, 45, 45);
-                    border: 1px solid rgb(167, 162, 162);
-                    padding: 10px;
-                    text-align: center;
-                }
-            }
-        }
-    }
-
-    .right-wrapper {
-        padding-left: 30px;
-    }
-
+    min-width: 1000px;
+    flex-wrap: wrap;
+  }
 }

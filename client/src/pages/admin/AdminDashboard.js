@@ -1,6 +1,9 @@
 import React from "react";
 import AdminNav from "../../components/nav/AdminNav";
-import "./admin.scss";
+
+import RecentOrders from "./dashboard/RecentOrders";
+import SalesReport from "./dashboard/SalesReport";
+import TopSelingProducts from "./dashboard/TopSellingProducts";
 
 const AdminDashboard = () => {
   return (
@@ -9,9 +12,12 @@ const AdminDashboard = () => {
       <div
         style={{
           minWidth: "80%",
+          minHeight: "100vh",
         }}
       >
-        Tutaj nastąpi zarządzanie sklepem internetowym
+        <SalesReport />
+        <TopSelingProducts />
+        <RecentOrders />
       </div>
     </div>
   );

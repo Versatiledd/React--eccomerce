@@ -1,0 +1,103 @@
+$color-accent: #4ce1b6;
+$color-accent-hover: darken($color-accent, 10%);
+$color-additional: #999999;
+$color-additional-hover: darken($color-additional, 10%);
+
+$color-yellow: #f6da6e;
+$color-yellow-hover: darken($color-yellow, 10%);
+
+$color-violet: #c88ffa;
+
+$color-red: #ff4861;
+$color-red-hover: darken($color-red, 10%);
+
+$color-blue: #70bbfd;
+$color-blue-hover: darken($color-blue, 10%);
+
+$color-gray: #5e5e66;
+$color-light-gray: #696b6e;
+
+$color-green: #b8e986;
+$color-green-hover: darken($color-green, 10%);
+
+.panel__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+
+  .panel__title {
+    .bold-text {
+      font-family: "Roboto";
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0;
+      color: $color-gray;
+    }
+  }
+
+  .panel__btns {
+    .panel__btn {
+      display: flex;
+      width: 18px;
+      height: 18px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+
+      svg {
+        width: 18px;
+        height: 18px;
+        fill: $color-gray;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.dashboard__sales-report {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+
+  .progress-wrap.progress-wrap--small {
+    width: 100%;
+    margin-right: 30px;
+
+    .dashboard__sales-report-title {
+      color: #8f2c2c;
+      font-size: 17px;
+    }
+
+    .dashboard__sales-report-now {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 18px;
+      margin-bottom: 10px;
+    }
+    .dashboard__sales-report-plan {
+      font-size: 14px;
+      line-height: 15px;
+      color: #999999;
+      opacity: 0.5;
+      margin-bottom: 10px;
+    }
+    .progress__label {
+      color: #4ce1b6;
+      font-size: 12px;
+      margin: 0;
+    }
+    .progress .progress-bar {
+      background-color: #4ce1b6;
+      color: #646777;
+      box-shadow: none;
+      height: 16px;
+      font-size: 9px;
+      line-height: 13px;
+    }
+  }
+}

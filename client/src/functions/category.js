@@ -20,3 +20,6 @@ export const createCategory = async (name, authtoken) =>
   await axios.post(`http://localhost:5000/api/category`, name, {
     headers: { "Access-Control-Allow-Origin": true, authtoken },
   });
+
+export const getCategorySubs = async (id) =>
+  await axios.get(`http://localhost:5000/api/category/subs/${id}`);
