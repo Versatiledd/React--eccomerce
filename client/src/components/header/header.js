@@ -17,6 +17,8 @@ import { withRouter } from "react-router-dom";
 
 import { logoutCurrentUser } from "../../redux/user/user-actions";
 
+import Search from "../search/search";
+
 import "./header.styles.scss";
 
 // import bigger menu
@@ -304,6 +306,7 @@ const Header = ({
                     ) : null}
                   </motion.div>
                 </div>
+                <Search />
               </div>
             </>
           )}

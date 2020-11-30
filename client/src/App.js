@@ -22,6 +22,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCreateProduct from "./pages/admin/AdminCreateProduct";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminUpdateProduct from "./pages/admin/AdminUpdateProduct";
+import ProductPage from "./pages/ProductPage/index";
 
 // category
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
@@ -31,11 +32,7 @@ import SubCreate from "./pages/admin/sub/SubCreate";
 import SubUpdate from "./pages/admin/sub/SubUpdate";
 
 // firebase
-import {
-  auth,
-  createUserProfileDocument,
-  addCollectionAndDocuments,
-} from "./firebase/firebase";
+import { auth } from "./firebase/firebase";
 //
 
 // actions
@@ -48,6 +45,7 @@ import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
+
 const App = ({ setCurrentUser, currentUser }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -69,38 +67,6 @@ const App = ({ setCurrentUser, currentUser }) => {
     });
     return () => unsubscribe();
   }, []);
-  // unsubscribeFromAuth = null;
-
-  // componentDidMount() {
-  //   console.log("wołam");
-  //   const { setCurrentUser, currentUser } = this.props;
-
-  //   console.log(currentUser);
-
-  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-  //     if (userAuth) {
-  //       const useRef = await createUserProfileDocument(userAuth);
-
-  //       const tokenUser = await userAuth.getIdTokenResult();
-
-  //       setCurrentUser({
-  //         email: userAuth.email,
-  //         tokenUser: tokenUser.token,
-  //       });
-  //     }
-  //     setCurrentUser(userAuth);
-  // dodanie do bazy danych produktów
-
-  // addCollectionAndDocuments(
-  //   "collections",
-  //   collectionsArray.map(({ title, items }) => ({ title, items }))
-  // );
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.unsubscribeFromAuth();
-  // }
 
   return (
     <>
@@ -112,6 +78,7 @@ const App = ({ setCurrentUser, currentUser }) => {
         <Route path="/logowanie" component={SignInAndSignUp} />
         <Route path="/rejestracja" component={Register} />
         <Route path="/resetowanie" component={ResetPassword} />
+        <Route path="/product/:slug" exact component={ProductPage} />
         <UserRoute path="/user/history" component={History} />
         <UserRoute path="/user/password" component={Password} />
         <UserRoute path="/user/wishlist" component={Wishlist} />

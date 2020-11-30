@@ -18,10 +18,17 @@ class Signin extends Component {
   };
 
   roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
-      this.props.history.push("admin/dashboard");
+    const { history } = this.props;
+    let intended = history.location;
+    console.log(intended.state.from);
+    if (intended) {
+      history.push(intended.state.from);
     } else {
-      this.props.history.push("user/history");
+      if (res.data.role === "admin") {
+        history.push("admin/dashboard");
+      } else {
+        history.push("user/history");
+      }
     }
   };
 

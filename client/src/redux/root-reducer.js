@@ -9,6 +9,7 @@ import menuReducer from "../redux/menu/menu.reducer";
 import shopReducer from "../redux/shop/shop-reducer";
 import afterBuyReducer from "../redux/afterBuy/afterBuy.reducer";
 import valueFromReducer from "../redux/formValue/formValue.reducer";
+import searchReducer from "../redux/search/searchReducer";
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   pastItems: afterBuyReducer,
   form: reduxForm,
   formSingleValue: valueFromReducer,
+  search: searchReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

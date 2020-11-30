@@ -1,0 +1,110 @@
+.product-card {
+  .product-gallery {
+    min-width: 400px;
+
+    a {
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .product_gallery__gallery {
+      margin: 20px 0;
+      .product-gallery__img-preview {
+        width: 140px;
+        height: 140px;
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0 5px;
+        img {
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .product-card__info {
+    margin: 0 30px;
+
+    .product-card__title {
+      margin-bottom: 20px;
+      color: rgb(5, 4, 4);
+    }
+    .product-card__rate {
+      display: flex;
+      height: 20px;
+      align-items: center;
+      margin: 20px 0;
+
+      svg.mdi-icon {
+        fill: darkgoldenrod;
+      }
+      .product-card__link {
+        font-size: 18px;
+        margin-left: 18px;
+        color: rgb(162, 167, 162);
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+    .typography-message {
+      margin: 20px 0;
+      line-height: 180%;
+      text-align: justify;
+    }
+    .product-card__form {
+      margin: 20px 0;
+
+      .btns {
+        display: flex;
+        justify-content: space-between;
+        max-width: 400px;
+        .btn-checkout,
+        .btn-wish,
+        .btn-star {
+          cursor: pointer;
+          text-decoration: none;
+          outline: none;
+          border: none;
+          padding: 6px;
+          border-radius: 10px;
+          color: rgb(236, 229, 229);
+          font-size: 14px;
+        }
+
+        .btn-checkout {
+          background-color: #8bc34a;
+        }
+        .btn-star {
+          background-color: #1383fb;
+        }
+        .btn-wish {
+          border: none;
+          background-color: #f44336;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 560px) and (orientation: landscape) {
+  .product-card {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .product-card {
+    display: flex;
+    flex-direction: row;
+
+    .product-gallery {
+      max-height: 300px;
+    }
+  }
+}

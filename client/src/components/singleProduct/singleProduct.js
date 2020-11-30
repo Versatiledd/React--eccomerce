@@ -4,6 +4,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import "./singleProduct.scss";
 import { addItem } from "../../redux/cart/cart.actions";
 import { useHistory } from "react-router-dom";
+import NoImage from "../../shared/image/no-img.png";
 
 const SingleProduct = ({ product, addItem }) => {
   const history = useHistory();
@@ -15,7 +16,7 @@ const SingleProduct = ({ product, addItem }) => {
       <div className="single-product">
         <div className="wrapper-image">
           <img
-            src={product.images.length > 0 ? product.images[0].url : null}
+            src={product.images.length > 0 ? product.images[0].url : NoImage}
             style={{
               width: "100%",
               height: "100%",

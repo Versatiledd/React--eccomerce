@@ -1,0 +1,19 @@
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+
+  .search-input {
+    display: block;
+    border: 1px solid #ccc7c7;
+    width: 200px;
+    height: 30px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+
+    &:focus {
+      border: 1px solid #4ce1b6;
+    }
+  }
+}
