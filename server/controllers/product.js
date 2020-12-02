@@ -191,8 +191,85 @@ const handleCategory = async (req, res, category) => {
   }
 };
 
+const handleStars = (req, res, stars) => {
+  Product.aggregate([
+    {
+      $project: {
+        document: "$$ROOT",
+        floorAverage: {
+          $floor: {
+            $avg: "$ratings.star",
+          },
+        },
+      },
+    },
+    {
+      $match: { floorAverage: stars },
+    },
+  ])
+    .limit(10)
+    .exec((err, agg) => {
+      if (err) console.log("Aggregates error");
+      Product.find({ _id: agg })
+        .populate("category", "_id name")
+        .populate("subs", "_id name")
+        .populate("postedBy", "_id name")
+        .exec((err, products) => {
+          if (err) console.log("Product aggregate error");
+          res.json(products);
+        });
+    });
+};
+
+const handleSub = async (req, res, sub) => {
+  const products = await Product.find({ subcategory: sub })
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json(products);
+};
+
+const handleShipping = async (req, res, shipping) => {
+  const products = await Product.find({ shipping })
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json(products);
+};
+const handleColor = async (req, res, color) => {
+  const products = await Product.find({ color })
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json(products);
+};
+const handleBrand = async (req, res, brand) => {
+  const products = await Product.find({ brand })
+    .populate("category", "_id name")
+    .populate("subs", "_id name")
+    .populate("postedBy", "_id name")
+    .exec();
+
+  res.json(products);
+};
+
 exports.searchFilters = async (req, res) => {
-  const { query, price, category } = req.body;
+  const {
+    query,
+    price,
+    category,
+    stars,
+    sub,
+    shipping,
+    color,
+    brand,
+  } = req.body;
 
   if (query) {
     await handleQuery(req, res, query);
@@ -203,5 +280,22 @@ exports.searchFilters = async (req, res) => {
   if (category) {
     console.log("category", category);
     await handleCategory(req, res, category);
+  }
+  if (stars) {
+    console.log("stars", stars);
+    await handleStars(req, res, stars);
+  }
+  if (sub) {
+    console.log("sub", sub);
+    await handleSub(req, res, sub);
+  }
+  if (shipping) {
+    await handleShipping(req, res, sub);
+  }
+  if (color) {
+    await handleColor(req, res, color);
+  }
+  if (brand) {
+    await handleBrand(req, res, brand);
   }
 };

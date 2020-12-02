@@ -57,7 +57,7 @@ const productSchema = Schema(
     },
     brand: {
       type: String,
-      enum: ["Komputery", "Telefony", "Meble"],
+      enum: ["Lenovo", "Asus", "Apple", "Samsung"],
     },
     ratings: [
       {
