@@ -7,13 +7,15 @@ const path = require("path");
 const { readdirSync } = require("fs");
 require("dotenv").config();
 
+const keys = require("./config/keys");
+
 // if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 // connect with express
 const app = express();
 // connect with database
 mongoose
-  .connect(process.env.MONGODBPRODUCTION, {
+  .connect(keys.MONGOURI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
