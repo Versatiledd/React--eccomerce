@@ -13,7 +13,7 @@ require("dotenv").config();
 const app = express();
 // connect with database
 mongoose
-  .connect(process.env.MONGOURI, {
+  .connect(process.env.MONGODBPRODUCTION, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -21,7 +21,7 @@ mongoose
   .then(() => console.log("success"))
   .catch((err) => console.log(`DB CONNECTION ERROD: ${err}`));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -35,6 +35,10 @@ app.use(
 app.use(cors());
 
 readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.listen(port, (error) => {
   if (error) throw error;
