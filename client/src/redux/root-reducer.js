@@ -14,7 +14,7 @@ import searchReducer from "../redux/search/searchReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"],
+  whitelist: [""],
 };
 
 const rootReducer = combineReducers({

@@ -232,6 +232,7 @@ const handleSub = async (req, res, sub) => {
 };
 
 const handleShipping = async (req, res, shipping) => {
+  console.log(shipping);
   const products = await Product.find({ shipping })
     .populate("category", "_id name")
     .populate("subs", "_id name")
@@ -290,7 +291,7 @@ exports.searchFilters = async (req, res) => {
     await handleSub(req, res, sub);
   }
   if (shipping) {
-    await handleShipping(req, res, sub);
+    await handleShipping(req, res, shipping);
   }
   if (color) {
     await handleColor(req, res, color);

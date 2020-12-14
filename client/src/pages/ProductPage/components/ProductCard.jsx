@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 import { Link, useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import ProductGallery from "./ProductGallery";
 import ProductTabs from "./ProductTabs";
 import {
@@ -8,13 +9,14 @@ import {
   productStar,
   getRelatedProducts,
 } from "../../../functions/product";
+import { addToWishlist } from "../../../functions/User";
 import StarRating from "react-star-ratings";
-import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import swal from "sweetalert";
 
 import averageRating from "../../../functions/rating";
 import RelatedItems from "./RelatedItems";
+import _ from "lodash";
 
 import "./productPage.scss";
 
@@ -40,10 +42,24 @@ const ProductCard = () => {
   const [visible, setVisible] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     singleProduct();
   }, [slug]);
+
+  const handleWishlist = (e) => {
+    e.preventDefault();
+
+    addToWishlist(product._id, currentUser.token).then((res) => {
+      swal({
+        title: "Produkt dodany",
+        icon: "success",
+        button: "Okay",
+      });
+      history.push("/user/wishlist");
+    });
+  };
 
   // useEffect(() => {
   //   if (product.ratings && currentUser) {
@@ -89,6 +105,29 @@ const ProductCard = () => {
     }
   };
 
+  const addToCart = (e, product) => {
+    e.preventDefault();
+    let cart = [];
+
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      let unique = _.uniqWith(cart, _.isEqual);
+
+      localStorage.setItem("cart", JSON.stringify(unique));
+
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: unique,
+      });
+    }
+  };
+
   return (
     <Col md={12} lg={12}>
       <Card>
@@ -112,7 +151,7 @@ const ProductCard = () => {
                   {product.price} zł
                 </span>
               </h1>
-              <p className="typography-message">{product.description}</p>
+              {/* <p className="typography-message"></p> */}
               <form className="form product-card__form">
                 {/* <div className="form__form-group"> */}
                 {/* <span className="form__form-group-label product-card__form-label">
@@ -141,8 +180,20 @@ const ProductCard = () => {
                 {/* </div> */}
                 {/* </div> */}
                 <div className="btns">
-                  <button className="btn-checkout">Dodaj do karty</button>
-                  <button className="btn-wish" type="button">
+                  <button
+                    className="btn-checkout"
+                    onClick={(e) => addToCart(e, product)}
+                    disabled={product.quantity === 0 ? true : false}
+                  >
+                    {product.quantity === 0
+                      ? "Produkt wyprzedany"
+                      : " Dodaj do karty"}
+                  </button>
+                  <button
+                    className="btn-wish"
+                    type="button"
+                    onClick={handleWishlist}
+                  >
                     Dodaj do listy życzeń
                   </button>
                   <button className="btn-star" onClick={(e) => handleClick(e)}>
@@ -212,7 +263,7 @@ const ProductCard = () => {
                   </button>
                 </div>
               </Modal>
-              <ProductTabs />
+              <ProductTabs product={product} />
             </div>
           </div>
           <RelatedItems products={relatedProducts} />

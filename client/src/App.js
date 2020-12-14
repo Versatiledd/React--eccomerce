@@ -43,6 +43,7 @@ import { getCurrentUser } from "./functions/auth";
 //
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
+import AuthRoute from "./components/routes/AuthRoute";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
@@ -75,9 +76,9 @@ const App = ({ setCurrentUser, currentUser }) => {
         <Route path="/" exact component={HomePage} />
         <Route path="/shop" component={ShopPage} />
         <Route path="/checkout" component={CheckOutPage} />
-        <Route path="/logowanie" component={SignInAndSignUp} />
-        <Route path="/rejestracja" component={Register} />
-        <Route path="/resetowanie" component={ResetPassword} />
+        <AuthRoute path="/logowanie" component={SignInAndSignUp} />
+        <AuthRoute path="/rejestracja" component={Register} />
+        <AuthRoute path="/resetowanie" component={ResetPassword} />
         <Route path="/product/:slug" exact component={ProductPage} />
         <UserRoute path="/user/history" component={History} />
         <UserRoute path="/user/password" component={Password} />

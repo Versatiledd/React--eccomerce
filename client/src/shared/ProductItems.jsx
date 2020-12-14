@@ -32,7 +32,9 @@ const ProductItems = ({ items }) => {
                     />
                   </div>
                   <span className="name">{item.title}</span>
-                  <p className="description">{item.description}</p>
+                  <p className="description">
+                    {item.description.substring(0, 180)}
+                  </p>
                 </div>
               </div>
             );

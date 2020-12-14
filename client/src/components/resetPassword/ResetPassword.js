@@ -12,12 +12,8 @@ export default function ResetPassword({ history }) {
   const { currentUser } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state);
 
-  console.log(user.currentUser);
-
   useEffect(() => {
-    console.log(currentUser);
-
-    if (currentUser) history.push("/dashboard");
+    if (currentUser) history.push("/");
   }, [currentUser]);
 
   const handleSubmit = async (e) => {

@@ -1,47 +1,43 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import "./stripe";
 import { clearItemsFromCheckout } from "../../redux/cart/cart.actions";
 import Swal from "sweetalert";
-import { addToFirebaseItemAfterBuy } from "../../firebase/firebase";
+import { userCart } from "../../functions/User";
+import { createAddress, createPayment } from "../../functions/stripe";
+import { useDispatch } from "react-redux";
 
-const StripeButton = ({
-  price,
-  items,
-  history,
-  clearItemsFromCheckout,
-  currentUser,
-}) => {
-  const priceForStripe = price * 100;
+const StripeButton = ({ history, currentUser, cart }) => {
+  const dispatch = useDispatch();
+  const priceForStripe = 2000;
   const publishableKey =
     "pk_test_51HUXmCC6xVHTvYil4zaggBoZ3em2W7qQoiBToqMFjEOZsDpwcxNkeBSQUCV4SvQMhxzN938EwQE89trvWYIWmiam00RPYXVKkC";
 
+  const saveToDB = (token) => {
+    userCart(cart, currentUser.currentUser.token, token).then((res) => {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("cart");
+      }
+      dispatch({
+        type: "CLEAR_CART_FROM_CHECKOUT",
+        payload: [],
+      });
+      history.push("/user/orders");
+    });
+  };
   const onToken = (token) => {
-    axios({
-      url: "payment",
-      method: "post",
-      data: {
-        amount: priceForStripe,
-        token,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        addToFirebaseItemAfterBuy(currentUser, items);
+    createPayment(currentUser.currentUser.token, token)
+      .then((res) => {
         Swal({
           title: "Płatność udana!",
           text: "Dziękujemy za zakup naszego produktu!",
           icon: "success",
           button: "Okay",
-        });
-        history.push("/dashboard");
-        clearItemsFromCheckout(items);
+        }).then(() => saveToDB(token));
       })
       .catch((error) => {
-        console.log(error);
         Swal({
           title: "Płatność odrzucona",
           text:
@@ -59,7 +55,7 @@ const StripeButton = ({
       ComponentClass="div"
       billingAddress
       shippingAddress
-      description={`Całkowita kwota do zapłaty ${price} $`}
+      description={`Całkowita kwota do zapłaty ${priceForStripe} PLN`}
       amount={priceForStripe}
       panelLabel="Zapłać"
       token={onToken}
@@ -71,8 +67,9 @@ const StripeButton = ({
   );
 };
 
-const mapStateToProps = ({ user: currentUser }) => ({
+const mapStateToProps = ({ user: currentUser, cart }) => ({
   currentUser,
+  cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({

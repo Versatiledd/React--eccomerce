@@ -9,8 +9,6 @@ require("dotenv").config();
 
 // if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
-// const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_KEY);
-
 // connect with express
 const app = express();
 // connect with database
@@ -36,31 +34,7 @@ app.use(
 );
 app.use(cors());
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "client/build")));
-
-//   app.get("*", function (req, res) {
-//     res.sendFile(path.join(__dirname, "client/build", "index.html"));
-//   });
-// }
-
 readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
-
-app.post("/payment", (req, res) => {
-  const body = {
-    source: req.body.token.id,
-    amount: req.body.amount,
-    currency: "pln",
-  };
-
-  stripe.charges.create(body, (stripeErr, stripeRes) => {
-    if (stripeErr) {
-      res.status(500).send({ error: stripeErr });
-    } else {
-      res.status(200).send({ success: stripeRes });
-    }
-  });
-});
 
 app.listen(port, (error) => {
   if (error) throw error;

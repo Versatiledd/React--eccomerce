@@ -80,9 +80,9 @@
           margin: 5px 0;
           text-align: center;
 
-          &:focus {
-            border: 2px solid #3e8bd3;
-          }
+          // &:focus {
+          //   border: 2px solid #3e8bd3;
+          // }
         }
 
         .ctg-input,
@@ -97,14 +97,14 @@
         .ctg-input {
           height: 30px;
           &:focus {
-            border: 2px solid #3e8bd3;
+            border: 2px solid #279e37;
           }
         }
 
         .btn-category {
           cursor: pointer;
           height: 30px;
-          background-color: #3e8bd3;
+          background-color: #279e37;
           color: rgb(255, 255, 255);
           border: none;
         }

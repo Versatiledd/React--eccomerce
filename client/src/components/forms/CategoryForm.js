@@ -77,9 +77,9 @@ const CategoryForm = ({
                 autoFocus
                 required
                 className="ctg-input"
-                placeholder="Kategoria"
+                placeholder="Wpisz kategorię"
               />
-              <button className="btn-category">Stwórz kategorię</button>{" "}
+              <button className="btn-category">Dodaj</button>
             </>
           )}
           {pathUrl === "/admin/sub" && (

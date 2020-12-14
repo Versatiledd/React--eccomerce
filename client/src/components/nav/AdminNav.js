@@ -28,19 +28,19 @@ const AdminNav = () => {
         </li>
         <li className="single-wrapper">
           <Link to="/admin/sub" className="single-link">
-            Sub kategorie
+            Podkategorie
           </Link>
         </li>
-        <li className="single-wrapper">
+        {/* <li className="single-wrapper">
           <Link to="/admin/sub" className="single-link">
             Kupony
           </Link>
-        </li>
-        <li className="single-wrapper">
-          <Link to="/user/password" className="single-link">
+        </li> */}
+        {/* <li className="single-wrapper">
+          <Link to="/admin/password" className="single-link">
             Zmiana hasła
           </Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

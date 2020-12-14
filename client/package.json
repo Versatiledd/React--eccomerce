@@ -5,6 +5,8 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@david.kucsai/react-pdf-table": "^0.3.0",
+    "@react-pdf/renderer": "^1.6.12",
     "@sweetalert/with-react": "^0.1.1",
     "antd": "^4.8.0",
     "autoprefixer": "^9.8.6",

@@ -18,16 +18,18 @@ class Signin extends Component {
   };
 
   roleBasedRedirect = (res) => {
+    console.log(res);
     const { history } = this.props;
-    let intended = history.location;
-    console.log(intended.state.from);
+    let intended = history.location.state;
+    console.log(intended);
     if (intended) {
+      alert("dsds");
       history.push(intended.state.from);
     } else {
       if (res.data.role === "admin") {
-        history.push("admin/dashboard");
+        history.push("/admin/dashboard");
       } else {
-        history.push("user/history");
+        history.push("/user/orders");
       }
     }
   };
@@ -71,7 +73,6 @@ class Signin extends Component {
 
   async googleLogin(setCurrentUser) {
     const { history } = this.props;
-    console.log(setCurrentUser);
     auth
       .signInWithPopup(provider)
       .then(async (result) => {

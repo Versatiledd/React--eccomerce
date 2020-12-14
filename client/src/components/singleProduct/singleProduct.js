@@ -26,16 +26,16 @@ const SingleProduct = ({ product, addItem }) => {
           />
         </div>
         <span className="name">{product.title}</span>
-        <p className="description">{product.description}</p>
+        <p className="description">{product.description.substring(0, 180)}</p>
         <div className="price-wrapper">
           <span className="price">{product.price} zł</span>
-          <AiOutlineShoppingCart
+          {/* <AiOutlineShoppingCart
             onClick={() => addItem(product)}
             style={{
               fontSize: "25px",
               color: "yellowgreen",
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>

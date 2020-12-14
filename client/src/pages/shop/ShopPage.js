@@ -26,12 +26,13 @@ export const ShopPage = () => {
   const [sub, setSub] = useState("");
   const [page, setPage] = useState(1);
   const [brands, setBrands] = useState(["Lenovo", "Asus", "Apple", "Samsung"]);
+  const [colors, setColors] = useState(["Czarny", "Biały", "Srebrny", "Złoty"]);
+  const [color, setColor] = useState("");
   const [brand, setBrand] = useState("");
+  const [shipping, setShipping] = useState("");
   const { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
   const dispatch = useDispatch();
-
-  console.log(products);
 
   useEffect(() => {
     loadProducts();
@@ -92,6 +93,7 @@ export const ShopPage = () => {
     setStar("");
     setSub([]);
     setBrand("");
+    setColor("");
     setTimeout(() => {
       setOkay(!ok);
     }, 600);
@@ -106,6 +108,7 @@ export const ShopPage = () => {
     setStar("");
     setSub("");
     setBrand("");
+    setColor("");
     let inTheState = [...categoryIds];
     let checked = e.target.value;
     let foundInTheState = inTheState.indexOf(checked);
@@ -152,6 +155,7 @@ export const ShopPage = () => {
     setSub([]);
     setStar(number);
     setBrand("");
+    setColor("");
     fetchProducts({ stars: number });
   };
   const showRatings = () => (
@@ -184,6 +188,7 @@ export const ShopPage = () => {
     setCategoriesIds([]);
     setStar("");
     setBrand("");
+    setColor("");
     fetchProducts({ sub });
   };
 
@@ -217,6 +222,7 @@ export const ShopPage = () => {
     setPrice([0, 0]);
     setCategoriesIds([]);
     setStar("");
+    setColor("");
     setBrand(e.target.value);
     fetchProducts({ brand: e.target.value });
   };
@@ -241,6 +247,81 @@ export const ShopPage = () => {
         </div>
       </>
     ));
+
+  const handleColor = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setSub("");
+    setPrice([0, 0]);
+    setCategoriesIds([]);
+    setStar("");
+    setBrand("");
+    setColor(e.target.value);
+    fetchProducts({ color: e.target.value });
+  };
+
+  const showColors = () =>
+    colors.map((col) => (
+      <>
+        <div
+          className="radio-brand"
+          style={{
+            margin: "15px 0",
+          }}
+        >
+          <Radio
+            value={col}
+            name={col}
+            checked={col === color}
+            onChange={(e) => handleColor(e)}
+          >
+            {col}
+          </Radio>
+        </div>
+      </>
+    ));
+
+  const handleShipping = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setSub("");
+    setPrice([0, 0]);
+    setCategoriesIds([]);
+    setStar("");
+    setBrand("");
+    setColor("");
+    setShipping(e.target.value);
+    fetchProducts({ shipping: e.target.value });
+  };
+
+  const showShipping = () => (
+    <>
+      <Checkbox
+        style={{
+          margin: "15px 0",
+        }}
+        onChange={(e) => handleShipping(e)}
+        checked={shipping === "Tak"}
+        value="Tak"
+      >
+        Tak
+      </Checkbox>
+      <Checkbox
+        style={{
+          margin: "15px 0",
+        }}
+        onChange={(e) => handleShipping(e)}
+        checked={shipping === "Nie"}
+        value="Nie"
+      >
+        Nie
+      </Checkbox>
+    </>
+  );
 
   return (
     <>
@@ -275,6 +356,12 @@ export const ShopPage = () => {
             </Menu.SubMenu>
             <Menu.SubMenu key="5" title={"Marka"}>
               {showBrands()}
+            </Menu.SubMenu>
+            <Menu.SubMenu key="6" title={"Kolory"}>
+              {showColors()}
+            </Menu.SubMenu>
+            <Menu.SubMenu key="7" title={"Dostawa"}>
+              {showShipping()}
             </Menu.SubMenu>
           </Menu>
         </div>

@@ -57,7 +57,7 @@ export const ProductList = ({ getValueFromSingleProduct }) => {
                 <th>Kategoria</th>
                 <th>Podkategoria</th>
                 <th>Dostawa</th>
-                <th>Opis</th>
+                {/* <th>Opis</th> */}
                 <th>Cena</th>
                 <th>Usuń produkt</th>
                 <th>Edytuj produkt</th>
@@ -125,7 +125,7 @@ export const ProductList = ({ getValueFromSingleProduct }) => {
                         >
                           {shipping}
                         </th>
-                        <th>{description}</th>
+                        {/* <th>{description.substring(0, 180)}</th> */}
                         <th>{price}</th>
                         <th>
                           <Badge

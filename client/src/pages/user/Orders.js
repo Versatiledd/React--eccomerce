@@ -1,5 +1,6 @@
 import React from "react";
 import UserNav from "../../components/nav/UserNav";
+import RecentOrders from "./RecentOrders";
 import "./history.scss";
 
 const Orders = () => {
@@ -11,7 +12,7 @@ const Orders = () => {
           minWidth: "80%",
         }}
       >
-        user buying products
+        <RecentOrders />
       </div>
     </div>
   );

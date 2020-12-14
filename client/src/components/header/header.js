@@ -17,6 +17,8 @@ import { withRouter } from "react-router-dom";
 
 import { logoutCurrentUser } from "../../redux/user/user-actions";
 
+import NoImage from "../../shared/image/no-img.png";
+
 import Search from "../search/search";
 
 import "./header.styles.scss";
@@ -30,7 +32,7 @@ const Header = ({
   isOpen,
   openMenu,
   currentUser,
-  cartItems,
+  cart,
   itemCount,
   history,
   logoutCurrentUser,
@@ -40,6 +42,7 @@ const Header = ({
     video: "video.mp4",
     id: null,
   });
+  console.log(cart);
   const [onHover, setHover] = useState(false);
   const [onHoverCart, setHoverCart] = useState(false);
 
@@ -247,7 +250,7 @@ const Header = ({
                   onMouseEnter={() => setHoverCart(!onHoverCart)}
                   onMouseLeave={() => setHoverCart(false)}
                 >
-                  <span className="ammount-item">{itemCount}</span>
+                  <span className="ammount-item">{cart.length}</span>
                   <div className="user-icon">
                     <TiShoppingCart />
                   </div>
@@ -259,20 +262,27 @@ const Header = ({
                       duration: onHoverCart && 0.4,
                     }}
                   >
-                    {cartItems.length > 0 ? (
-                      <span className="cart-title">Koszyk ({itemCount})</span>
+                    {cart && cart.length > 0 ? (
+                      <span className="cart-title">Koszyk ({cart.length})</span>
                     ) : null}
 
-                    {cartItems.length > 0 ? (
-                      cartItems.map((item) => {
+                    {cart && cart.length > 0 ? (
+                      cart.map((item, i) => {
                         return (
                           <div className="cart-item" key={item.id}>
                             <div className="cart-description">
                               <div className="container-desription">
-                                <img src={item.imageUrl} alt="" />
+                                <img
+                                  src={
+                                    item.images.length > 0
+                                      ? item.images[0].url
+                                      : NoImage
+                                  }
+                                  alt=""
+                                />
                               </div>
-                              <div className="item-title">{item.name}</div>
-                              <div className="item-price">{item.price}</div>
+                              <div className="item-title">{item.title}</div>
+                              {/* <div className="item-price">{item.price}</div> */}
                             </div>
                             <div className="checkout-cart">
                               <div className="container-checkout">
@@ -290,11 +300,18 @@ const Header = ({
                     ) : (
                       <div className="container-cart">
                         <div className="btn-wrapper">
-                          <h3 className="title-cart">Twój koszyk jest pusty</h3>
+                          <h4
+                            className="title-cart"
+                            style={{
+                              margin: "10px 0",
+                            }}
+                          >
+                            Twój koszyk jest pusty
+                          </h4>
                         </div>
                       </div>
                     )}
-                    {cartItems.length > 0 ? (
+                    {cart && cart.length > 0 ? (
                       <div className="btn-wra">
                         <button
                           className="btn-checkout"
@@ -333,14 +350,17 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({
-  cart: { cartItems },
+  cart,
   user: { currentUser },
   menu: { isOpen },
 }) => ({
   currentUser,
   isOpen,
-  cartItems,
-  itemCount: cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0),
+  cart,
+  // cartItems,
+  // itemCount:
+  //   cartItems &&
+  //   cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0),
 });
 
 export default withRouter(

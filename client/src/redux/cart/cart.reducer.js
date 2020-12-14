@@ -1,28 +1,23 @@
-import { removeDuplicate } from "./remove-duplicate-array";
+let initializeState = [];
 
-import { addItemToCart, removeItem } from "../cart/cart.utils";
+if (typeof window !== "undefined") {
+  if (localStorage.getItem("cart")) {
+    initializeState = JSON.parse(localStorage.getItem("cart"));
+  } else {
+    initializeState = [];
+  }
+}
 
-const InitializeState = {
-  cartItems: [],
-};
-
-const cartReducer = (state = InitializeState, action) => {
+const cartReducer = (state = initializeState, action) => {
   switch (action.type) {
-    case "ADD_ITEM":
-      return {
-        ...state,
-        cartItems: addItemToCart(state.cartItems, action.payload),
-      };
-    case "CLEAR_ITEMS_FROM_CHECKOUT":
-      return {
-        ...state,
-        cartItems: [],
-      };
-    case "REMOVE_ITEM":
-      return {
-        ...state,
-        cartItems: removeItem(state.cartItems, action.payload),
-      };
+    case "ADD_TO_CART":
+      return action.payload;
+    case "UPDATE_COUNT_ITEM":
+      return action.payload;
+    case "REMOVE_FROM_CART":
+      return action.payload;
+    case "CLEAR_CART_FROM_CHECKOUT":
+      return action.payload;
     default:
       return state;
   }

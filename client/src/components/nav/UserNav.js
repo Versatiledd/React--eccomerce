@@ -16,11 +16,11 @@ const UserNav = () => {
             Listy zakupowe
           </Link>
         </li>
-        <li className="single-wrapper">
+        {/* <li className="single-wrapper">
           <Link to="/user/password" className="single-link">
             Resetowanie hasła
           </Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );
