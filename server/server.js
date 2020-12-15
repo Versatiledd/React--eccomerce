@@ -9,10 +9,8 @@ require("dotenv").config();
 
 const keys = require("./config/keys");
 
-console.log(keys.MONGOURI);
-
 // if (process.env.NODE_ENV !== "production") require("dotenv").config();
-
+console.log("SPRAWDZAN KLUCZ ----------------> ", keys.MONGOURI);
 // connect with express
 const app = express();
 // connect with database
@@ -41,6 +39,8 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Łącze z backendem");
 });
+
+readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
