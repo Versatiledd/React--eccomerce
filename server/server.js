@@ -15,7 +15,7 @@ console.log("SPRAWDZAN KLUCZ ----------------> ", keys.MONGOURI);
 const app = express();
 // connect with database
 mongoose
-  .connect(keys.MONGOURI, {
+  .connect(process.env.MONGODBPRODUCTION, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -39,8 +39,6 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Łącze z backendem");
 });
-
-readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
