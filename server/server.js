@@ -45,6 +45,10 @@ readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 //   app.use(express.static("client/build"));
 // }
 
+app.get("/", (req, res) => {
+  res.send("Łącze z backendem");
+});
+
 app.listen(port, (error) => {
   if (error) throw error;
   console.log("Server running on" + port);
