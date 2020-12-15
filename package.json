@@ -7,7 +7,7 @@
   },
   "description": "Eccomerce",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "keywords": [],
   "author": "Mateusz Dudziec",
