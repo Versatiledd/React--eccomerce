@@ -14,14 +14,6 @@ console.log("SPRAWDZAN KLUCZ ----------------> ", keys.MONGOURI);
 // connect with express
 const app = express();
 
-require("./routes/admin")(app);
-require("./routes/auth")(app);
-require("./routes/category")(app);
-require("./routes/cloudinary")(app);
-require("./routes/product")(app);
-require("./routes/stripe")(app);
-require("./routes/subCategory")(app);
-require("./routes/user")(app);
 // connect with database
 mongoose
   .connect(process.env.MONGODBPRODUCTION, {
@@ -48,6 +40,15 @@ app.use(cors());
 app.get("/api", (req, res) => {
   res.send("Łącze z backendem");
 });
+
+require("./routes/admin")(app);
+require("./routes/auth")(app);
+require("./routes/category")(app);
+require("./routes/cloudinary")(app);
+require("./routes/product")(app);
+require("./routes/stripe")(app);
+require("./routes/subCategory")(app);
+require("./routes/user")(app);
 
 app.listen(port, (error) => {
   if (error) throw error;
