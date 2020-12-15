@@ -43,12 +43,6 @@ app.get("/api", (req, res) => {
 
 require("./routes/admin")(app);
 require("./routes/auth")(app);
-require("./routes/category")(app);
-require("./routes/cloudinary")(app);
-require("./routes/product")(app);
-require("./routes/stripe")(app);
-require("./routes/subCategory")(app);
-require("./routes/user")(app);
 
 app.listen(port, (error) => {
   if (error) throw error;
