@@ -36,10 +36,7 @@ app.use(
 );
 app.use(cors());
 
-const pathaaa = readdirSync("./routes");
-console.log(pathaaa);
-
-readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+// readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
