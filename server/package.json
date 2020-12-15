@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "engines": {
-    "node": "12.x"
+    "node": "12.18.3"
   },
   "description": "Eccomerce",
   "scripts": {
