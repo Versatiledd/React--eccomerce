@@ -9,6 +9,8 @@ require("dotenv").config();
 
 const keys = require("./config/keys");
 
+console.log(keys.MONGOURI);
+
 // if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 // connect with express
@@ -21,7 +23,7 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => console.log("success"))
-  .catch((err) => console.log(`DB CONNECTION ERROD: ${err}`));
+  .catch((err) => console.log(`DB CONNECTION ERROR: ${err}`));
 
 const port = process.env.PORT || 5000;
 
@@ -42,5 +44,5 @@ app.get("/", (req, res) => {
 
 app.listen(port, (error) => {
   if (error) throw error;
-  console.log("Server running on" + port);
+  console.log("Server running on " + port);
 });
