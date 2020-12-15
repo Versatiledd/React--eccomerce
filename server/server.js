@@ -36,7 +36,10 @@ app.use(
 );
 app.use(cors());
 
-readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+const pathaaa = readdirSync("./routes");
+console.log(pathaaa);
+
+// readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
@@ -44,5 +47,5 @@ readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
-  console.log("Server running on  " + port);
+  console.log("Server running on" + port);
 });
