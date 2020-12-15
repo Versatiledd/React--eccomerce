@@ -9,6 +9,14 @@ require("dotenv").config();
 
 const keys = require("./config/keys");
 
+require("./routes/admin")(app);
+require("./routes/auth")(app);
+require("./routes/category")(app);
+require("./routes/cloudinary")(app);
+require("./routes/product")(app);
+require("./routes/stripe")(app);
+require("./routes/subCategory")(app);
+require("./routes/user")(app);
 // if (process.env.NODE_ENV !== "production") require("dotenv").config();
 console.log("SPRAWDZAN KLUCZ ----------------> ", keys.MONGOURI);
 // connect with express
@@ -36,7 +44,7 @@ app.use(
 );
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Łącze z backendem");
 });
 
