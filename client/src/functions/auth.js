@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createOrUpdateUser = async (authtoken) => {
   return await axios.post(
-    "http://localhost:5000/api/create-or-update-user",
+    `${process.env.API_URL}/create-or-update-user`,
     {},
     {
       headers: {
@@ -14,7 +14,7 @@ export const createOrUpdateUser = async (authtoken) => {
 
 export const getCurrentUser = async (authtoken) => {
   return await axios.post(
-    "http://localhost:5000/api/current-user",
+    `${process.env.API_URL}/current-user`,
     {},
     {
       headers: {
@@ -26,7 +26,7 @@ export const getCurrentUser = async (authtoken) => {
 
 export const currentAdmin = async (authtoken) => {
   return await axios.post(
-    "http://localhost:5000/api/current-admin",
+    `${process.env.API_URL}/current-admin`,
     {},
     {
       headers: {

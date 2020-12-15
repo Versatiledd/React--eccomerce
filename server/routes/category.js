@@ -14,11 +14,21 @@ const {
 
 // routes
 
-router.post("/category", authCheck, adminCheck, create);
-router.get("/categories", list);
-router.get("/category/:slug", read);
-router.put("/category/:slug", authCheck, adminCheck, update);
-router.delete("/category/:slug", authCheck, adminCheck, remove);
-router.get("/category/subs/:_id", getSubs);
+router.post(`${process.env.API_URL}/category`, authCheck, adminCheck, create);
+router.get(`${process.env.API_URL}/categories`, list);
+router.get(`${process.env.API_URL}/category/:slug`, read);
+router.put(
+  `${process.env.API_URL}/category/:slug`,
+  authCheck,
+  adminCheck,
+  update
+);
+router.delete(
+  `${process.env.API_URL}/category/:slug`,
+  authCheck,
+  adminCheck,
+  remove
+);
+router.get(`${process.env.API_URL}/category/subs/:_id`, getSubs);
 
 module.exports = router;

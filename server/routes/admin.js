@@ -6,6 +6,11 @@ const { authCheck, adminCheck } = require("../middlewares/auth");
 
 const { updateOrderStatus } = require("../controllers/admin");
 
-router.put("/admin/order-status", authCheck, adminCheck, updateOrderStatus);
+router.put(
+  `${process.env.API_URL}/admin/order-status`,
+  authCheck,
+  adminCheck,
+  updateOrderStatus
+);
 
 module.exports = router;
