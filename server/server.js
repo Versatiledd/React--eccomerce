@@ -11,8 +11,6 @@ const keys = require("./config/keys");
 
 const app = express();
 
-const routes = require("./routes/api");
-
 // connect with database
 mongoose
   .connect(
@@ -39,9 +37,7 @@ app.use(
 );
 app.use(cors());
 
-app.use("/api", routes);
-
-// readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
