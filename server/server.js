@@ -16,7 +16,7 @@ const app = express();
 
 // connect with database
 mongoose
-  .connect(process.env.MONGODBPRODUCTION, {
+  .connect(process.env.MONGOLOCAL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -37,12 +37,7 @@ app.use(
 );
 app.use(cors());
 
-app.get("/api", (req, res) => {
-  res.send("Łącze z backendem");
-});
-
-require("./routes/admin")(app);
-require("./routes/auth")(app);
+readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
