@@ -9,10 +9,9 @@ require("dotenv").config();
 
 const keys = require("./config/keys");
 
-// if (process.env.NODE_ENV !== "production") require("dotenv").config();
-console.log("SPRAWDZAN KLUCZ ----------------> ", keys.MONGOURI);
-// connect with express
 const app = express();
+
+const routes = require("./routes/api");
 
 // connect with database
 mongoose
@@ -40,7 +39,9 @@ app.use(
 );
 app.use(cors());
 
-readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+app.use("/api", routes);
+
+// readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
