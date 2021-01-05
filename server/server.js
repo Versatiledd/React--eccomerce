@@ -16,11 +16,14 @@ const app = express();
 
 // connect with database
 mongoose
-  .connect(process.env.MONGOLOCAL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(
+    "mongodb+srv://eccomerce:g1SxlpEuyC3qeRDP@cluster0.ckh9f.mongodb.net/eccomerce?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
+  )
   .then(() => console.log("success"))
   .catch((err) => console.log(`DB CONNECTION ERROR: ${err}`));
 
