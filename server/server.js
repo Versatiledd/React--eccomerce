@@ -6,8 +6,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const { readdirSync } = require("fs");
 
-import authRoutes from "./routes/admin";
-import categoryRoutes from "./routes/category";
+const authRoutes = require("./routes/auth");
+const categoryRoutes = require("./routes/category");
 
 const keys = require("./config/keys");
 
