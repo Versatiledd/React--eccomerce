@@ -5,7 +5,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
 const { readdirSync } = require("fs");
-require("dotenv").config();
+
+import authRoutes from "./routes/admin";
+import categoryRoutes from "./routes/category";
 
 const keys = require("./config/keys");
 
@@ -35,9 +37,13 @@ app.use(
     parameterLimit: 50000,
   })
 );
+
 app.use(cors());
 
-readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
+app.use("/", authRoutes);
+app.use("/api", categoryRoutes);
+
+// readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
 app.listen(port, (error) => {
   if (error) throw error;
