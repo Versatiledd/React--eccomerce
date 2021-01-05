@@ -8,6 +8,12 @@ const { readdirSync } = require("fs");
 
 const authRoutes = require("./routes/auth");
 const categoryRoutes = require("./routes/category");
+const adminRoutes = require("./routes/admin");
+const cloudinaryRoutes = require("./routes/cloudinary");
+const productRoutes = require("./routes/product");
+const stripeRoutes = require("./routes/stripe");
+const subRoutes = require("./routes/subCategory");
+const userRoutes = require("./routes/user");
 
 const keys = require("./config/keys");
 
@@ -42,6 +48,13 @@ app.use(cors());
 
 app.use("/api", authRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api", cloudinaryRoutes);
+app.use("/api", productRoutes);
+app.use("/api", stripeRoutes);
+app.use("/api", authRoutes);
+app.use("/api", subRoutes);
+app.use("/api/user", userRoutes);
 
 // readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
