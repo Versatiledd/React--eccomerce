@@ -40,7 +40,7 @@ app.use(
 
 app.use(cors());
 
-app.use("/", authRoutes);
+app.use("/api", authRoutes);
 app.use("/api", categoryRoutes);
 
 // readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
