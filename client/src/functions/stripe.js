@@ -5,7 +5,7 @@ export const createAddress = async (authToken, address) =>
     "https://shop-md.herokuapp.com/api/create-adress",
     { address },
     {
-      headers: { "Access-Control-Allow-Origin": true, authToken },
+      headers: { "Access-Control-Allow-Origin": "*", authToken },
     }
   );
 
@@ -14,6 +14,6 @@ export const createPayment = async (authToken, token) =>
     "https://shop-md.herokuapp.com/api/create-payment",
     { token },
     {
-      headers: { "Access-Control-Allow-Origin": true, authToken },
+      headers: { "Access-Control-Allow-Origin": "*", authToken },
     }
   );

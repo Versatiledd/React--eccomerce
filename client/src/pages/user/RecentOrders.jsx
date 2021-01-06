@@ -59,7 +59,7 @@ const RecentOrders = () => {
               <tr>
                 <th className="name-tr">#</th>
                 <th className="name-tr">PDF</th>
-                <th className="name-tr">Nazwa produktu</th>
+                {/* <th className="name-tr">Nazwa produktu</th> */}
                 <th className="name-tr">Kolor</th>
                 <th className="name-tr">Ilość</th>
                 <th className="name-tr">Cena</th>
@@ -73,7 +73,7 @@ const RecentOrders = () => {
                     <tr key={el._id}>
                       <td>{i}</td>
                       <td>{showDownloadLink(cartUser.products)}</td>
-                      <td>{el.product.title}</td>
+                      {/* <td>{el.product.title}</td> */}
                       <td>{el.color}</td>
                       <td>{el.count}</td>
                       <td>{el.price}</td>

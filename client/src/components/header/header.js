@@ -42,7 +42,6 @@ const Header = ({
     video: "video.mp4",
     id: null,
   });
-  console.log(cart);
   const [onHover, setHover] = useState(false);
   const [onHoverCart, setHoverCart] = useState(false);
 

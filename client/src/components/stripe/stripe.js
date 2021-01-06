@@ -38,6 +38,7 @@ const StripeButton = ({ history, currentUser, cart }) => {
         }).then(() => saveToDB(token));
       })
       .catch((error) => {
+        console.log(error);
         Swal({
           title: "Płatność odrzucona",
           text:
