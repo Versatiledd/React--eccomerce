@@ -10,7 +10,7 @@ export const userCart = async (cart, authtoken, tokenStripe) =>
   );
 
 export const getUserProducts = async (authtoken) =>
-  await axios.get("http://localhost:5000/api/user/products", {
+  await axios.get("https://shop-md.herokuapp.com/api/user/products", {
     headers: { "Access-Control-Allow-Origin": true, authtoken },
   });
 

@@ -54,7 +54,7 @@ app.use("/api", productRoutes);
 app.use("/api", stripeRoutes);
 app.use("/api", authRoutes);
 app.use("/api", subRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api", userRoutes);
 
 // readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
