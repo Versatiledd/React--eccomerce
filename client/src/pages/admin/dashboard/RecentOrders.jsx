@@ -20,7 +20,6 @@ const RecentOrders = () => {
 
   const changeStatusOrder = (orderId, orderStatus) => {
     updateOrder(orderId, orderStatus, currentUser.token).then((res) => {
-      console.log(res.data);
       loadData();
     });
   };
@@ -30,7 +29,7 @@ const RecentOrders = () => {
   }, []);
   return (
     <>
-      {cartUser.length === 0 ? (
+      {cartUser == null || cartUser.length === 0 ? (
         <p
           style={{
             fontWeight: 600,
