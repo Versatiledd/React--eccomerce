@@ -43,6 +43,7 @@ app.use(
     parameterLimit: 50000,
   })
 );
+app.use(cors());
 
 app.use("/api", authRoutes);
 app.use("/api", categoryRoutes);
@@ -55,8 +56,6 @@ app.use("/api", subRoutes);
 app.use("/api", userRoutes);
 
 // readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
-
-app.use(cors());
 
 app.listen(port, (error) => {
   if (error) throw error;
