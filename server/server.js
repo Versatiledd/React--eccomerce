@@ -48,7 +48,7 @@ app.use(cors());
 
 app.use("/api", authRoutes);
 app.use("/api", categoryRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api", adminRoutes);
 app.use("/api", cloudinaryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", stripeRoutes);
