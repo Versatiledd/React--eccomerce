@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const userCart = async (cart, authtoken, tokenStripe) =>
   await axios.post(
-    "http://localhost:5000/api/user/cart",
+    "https://shop-md.herokuapp.com/api/user/cart",
     { cart, tokenStripe },
     {
       headers: { "Access-Control-Allow-Origin": true, authtoken },
@@ -16,7 +16,7 @@ export const getUserProducts = async (authtoken) =>
 
 export const addToWishlist = async (productId, authtoken) =>
   await axios.post(
-    "http://localhost:5000/api/user/wishlist",
+    "https://shop-md.herokuapp.com/api/user/wishlist",
     { productId },
     {
       headers: { "Access-Control-Allow-Origin": true, authtoken },
@@ -24,13 +24,13 @@ export const addToWishlist = async (productId, authtoken) =>
   );
 
 export const getWishlist = async (authtoken) =>
-  await axios.get("http://localhost:5000/api/user/wishlist", {
+  await axios.get("https://shop-md.herokuapp.com/api/user/wishlist", {
     headers: { "Access-Control-Allow-Origin": true, authtoken },
   });
 
 export const removeWishlist = async (productId, authtoken) =>
   await axios.put(
-    `http://localhost:5000/api/user/wishlist/${productId}`,
+    `https://shop-md.herokuapp.com/api/user/wishlist/${productId}`,
     {},
     {
       headers: { "Access-Control-Allow-Origin": true, authtoken },
