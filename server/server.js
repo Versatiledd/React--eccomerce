@@ -51,7 +51,6 @@ app.use("/api", adminRoutes);
 app.use("/api", cloudinaryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", stripeRoutes);
-app.use("/api", authRoutes);
 app.use("/api", subRoutes);
 app.use("/api", userRoutes);
 
