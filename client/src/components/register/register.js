@@ -36,10 +36,9 @@ class Register extends Component {
         email,
         password
       );
-      await createUserProfileDocument(user, { displayName });
-
       const idTokenUser = await user.getIdTokenResult();
 
+      console.log(idTokenUser);
       createOrUpdateUser(idTokenUser.token)
         .then((res) => {
           setCurrentUser({
@@ -49,22 +48,23 @@ class Register extends Component {
             role: res.data.role,
             _id: res.data._id,
           });
-          history.push("/");
+          this.setState({
+            displayName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+          swal(
+            "Rejestracja udana!",
+            "Możesz się zalogować do swojego konta!",
+            "success"
+          ).then(() => {
+            history.push("/logowanie");
+          });
         })
         .catch((err) => console.log(err));
-
-      this.setState({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-      swal(
-        "Rejestracja udana!",
-        "Możesz się zalogować do swojego konta!",
-        "success"
-      );
     } catch (error) {
+      console.log(error);
       swal({
         title: "Rejestracja nieudana!",
         text: "Wpisz poprawnie dane i spróbuj ponownie.",
