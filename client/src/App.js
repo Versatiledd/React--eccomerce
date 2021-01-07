@@ -47,6 +47,8 @@ import AuthRoute from "./components/routes/AuthRoute";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
+import CookieConsent from "react-cookie-consent";
+
 const App = ({ setCurrentUser, currentUser }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -101,6 +103,42 @@ const App = ({ setCurrentUser, currentUser }) => {
           component={AdminUpdateProduct}
         />
       </Switch>
+      <CookieConsent
+        location="bottom"
+        buttonText="Rozumiem"
+        cookieName="Wiadomość"
+        style={{ background: "#252525", height: "150px" }}
+        buttonStyle={{ color: "#4e503b", fontSize: "12px" }}
+        expires={150}
+      >
+        <div>
+          <p
+            style={{
+              fontFamily: "Roboto",
+            }}
+          >
+            Witaj, zanim przejdziesz do testowania aplikacji chciałbym
+            zaznaczyć, że nie jest ona doskonała i jestem tego świadomy.
+            Zapraszam do przeczytania opisu na githubie.
+          </p>
+          <div>
+            <p
+              style={{
+                color: "#4caf50",
+              }}
+            >
+              Nick/Email : admin@gmail.com
+            </p>
+            <p
+              style={{
+                color: "#4caf50",
+              }}
+            >
+              Hasło : admin1234
+            </p>
+          </div>
+        </div>
+      </CookieConsent>
     </>
   );
 };

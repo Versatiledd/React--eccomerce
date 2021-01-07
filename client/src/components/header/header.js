@@ -195,10 +195,23 @@ const Header = ({
                                 Panel admina
                               </button>
                             </Link>
+                            <Link to="/user/orders">
+                              <button
+                                className="login-btn"
+                                style={{
+                                  margin: "10px 0",
+                                }}
+                              >
+                                Panel użytkownika
+                              </button>
+                            </Link>
                             <Link to="/">
                               <button
                                 className="login-btn"
                                 onClick={() => logout()}
+                                style={{
+                                  margin: "10px 0",
+                                }}
                               >
                                 Wyloguj się
                               </button>

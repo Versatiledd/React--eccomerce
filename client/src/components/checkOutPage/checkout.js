@@ -246,6 +246,18 @@ const CheckOutPage = ({ cart }) => {
             <span className="total">Łączna kwota</span>
             <span className="total-price">{getTotal()} zł</span>
           </div>
+          <div
+            style={{
+              padding: "20px",
+            }}
+          >
+            <p style={{ fontWeight: 500 }}>Dane testowe do przelewu:</p>
+            <p style={{ fontWeight: 500 }}>Numer karty : 4242 4242 4242 4242</p>
+            <p style={{ fontWeight: 500 }}>
+              Miesiąc: dowolny, rok: 2021, np: 10/2021
+            </p>
+            <p style={{ fontWeight: 500 }}>CVC: dowolne, np: 268</p>
+          </div>
           <div className="btn">
             <StripeButton items={cart} />
           </div>
