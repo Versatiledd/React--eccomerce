@@ -84,7 +84,7 @@ const ProductCreateForm = ({
         (uri) => {
           axios
             .post(
-              "https://shop-md.netlify.app/api/uploadimages",
+              "https://shop-md.herokuapp.com/api/uploadimages",
               { image: uri },
               {
                 headers: {

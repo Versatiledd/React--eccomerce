@@ -38,7 +38,7 @@ class DropZoneMultipleField extends PureComponent {
         (uri) => {
           axios
             .post(
-              "https://shop-md.netlify.app/uploadimages",
+              "https://shop-md.herokuapp.com/api/uploadimages",
               { image: uri },
               {
                 headers: {
