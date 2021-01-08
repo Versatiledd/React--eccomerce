@@ -84,7 +84,7 @@ const ProductCreateForm = ({
         (uri) => {
           axios
             .post(
-              "http://localhost:5000/api/uploadimages",
+              "https://shop-md.netlify.app/api/uploadimages",
               { image: uri },
               {
                 headers: {
