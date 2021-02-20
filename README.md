@@ -2,13 +2,18 @@ Aplikacja jest sklepem internetowym. Podczas tworzenia projektu został użyty p
 
 Kiedy loguje się do aplikacji jako user:
 
-- nie mam dostępu do panelu admina, ponieważ przyznawany token podczas logowania jest walidowany a następnie zwraca role: 'user'
-- użytkownik ma dostęp do swojego panelu, który posiada historię zakupów, liste zakupionych rzeczy oraz możliwość resetowania hasła (jeszcze nie gotowe)
+- nie mam dostępu do panelu admina, ponieważ użytkownik ma role: 'user'
+- użytkownik ma dostęp do swojego panelu, który posiada historię zakupów oraz liste życzeń 
+- ocenić produkt na podstawie gwiazdek (1 do 5)
+
+Kiedy loguje się jako admin:
+- mam dostęp do panelu admina
+- mogę zarządzać produktami (CRUD operacje) 
+- zmieniać status przesyłek zakupionych przez użytkowników rzeczy
 
 Docelowo aplikacja będzie umożliwiała dodatkowo:
 
-- ocena produktów na podstawie dodawanych opini przez użytkowników (od 1 gwiazdki do 5) na podstawie której kilka pierwszych produktów z najwyższą oceną będzie renderowane na stronie
-- możliwość komunikacji z innymi użytkownikami oraz adminem
+- możliwość komunikacji z adminem na czacie
 
 Aby uruchomić projekt wystarczy wykonać następujące kroki:
 
